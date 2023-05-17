@@ -1,9 +1,9 @@
-// library welcome;
+library welcome;
 
-// export 'welcome_state.dart';
-// export 'welcome_controller.dart';
-// export 'welcome_bindings.dart';
-// export 'welcome_view.dart';
+export './welcome_state.dart';
+export './welcome_controller.dart';
+export './welcome_bindings.dart';
+export './welcome_view.dart';
 
 
 
