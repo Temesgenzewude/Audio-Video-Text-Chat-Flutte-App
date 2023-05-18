@@ -128,22 +128,23 @@ class SignInPage extends GetView<SignInController> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: AppColors.primarySecondaryBackground,
-      // body: Center(
-      //   child: Column(
-      //     children: [
-      //       _buildLogo(),
-      //       _buildThirdPartyLogin("Google", "google"),
-      //       _buildThirdPartyLogin("Facebook", "facebook"),
-      //       _buildThirdPartyLogin("Apple", "apple"),
-      //       _buildOrWidget(),
-      //       _buildThirdPartyLogin("phone number", ""),
-      //       SizedBox(
-      //         height: 30.h,
-      //       ),
-      //       _buildSignInWidget(),
-      //     ],
-      //   ),
-      // ),
+      body: Center( 
+        child: Text("Sign In Page"),
+        // child: Column(
+        //   children: [
+        //     _buildLogo(),
+        //     _buildThirdPartyLogin("Google", "google"),
+        //     _buildThirdPartyLogin("Facebook", "facebook"),
+        //     _buildThirdPartyLogin("Apple", "apple"),
+        //     _buildOrWidget(),
+        //     _buildThirdPartyLogin("phone number", ""),
+        //     SizedBox(
+        //       height: 30.h,
+        //     ),
+        //     _buildSignInWidget(),
+        //   ],
+        // ),
+      ),
     );
   }
 }
