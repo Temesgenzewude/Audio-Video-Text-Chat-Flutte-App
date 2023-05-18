@@ -13,9 +13,9 @@ class WelcomeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    print("Welcome controller initialized");
 
-    Future.delayed(
-        Duration(seconds: 4), (() => Get.offNamed(AppRoutes.Message)));
+    // Future.delayed(
+    //     Duration(seconds: 4), (() => Get.offNamed(AppRoutes.Message)));
   }
-
 }

@@ -1,6 +1,8 @@
 import 'package:chatty/common/routes/names.dart';
 import 'package:chatty/common/routes/pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 
 void main() {
@@ -13,7 +15,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return ScreenUtilInit(
+      designSize: const Size(360, 780),
+      
+      builder: (context, child)=>GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Chatty .',
       theme: ThemeData(
@@ -23,7 +28,7 @@ class MyApp extends StatelessWidget {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     
-    );
+    ));
   }
 }
 
