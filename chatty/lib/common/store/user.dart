@@ -10,7 +10,7 @@ class UserStore extends GetxController {
 
   //to check whether the user has logged in or not
   final _isLogin = false.obs;
-  // 令牌 token
+  // token
   String token = '';
   //user profile
   final _profile = UserItem().obs;
@@ -53,7 +53,7 @@ class UserStore extends GetxController {
     setToken(profile.access_token!);
   }
 
-  // logout
+  // called during logout
   Future<void> onLogout() async {
    // if (_isLogin.value) await UserAPI.logout();
     await StorageService.to.remove(STORAGE_USER_TOKEN_KEY);

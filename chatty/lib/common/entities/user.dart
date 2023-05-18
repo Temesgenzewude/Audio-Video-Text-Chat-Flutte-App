@@ -9,6 +9,7 @@ class LoginRequestEntity {
   String? phone;
   String? avatar;
   String? open_id;
+  
   int? online;
 
   LoginRequestEntity({
