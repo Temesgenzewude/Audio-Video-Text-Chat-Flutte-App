@@ -12,6 +12,7 @@ class WelcomePage extends GetView<WelcomeController> {
   Widget _buildPageHeaderTitle(String title) {
     return Container(
       margin: EdgeInsets.only(
+
         top: 350,
       ),
       child: Text(
@@ -21,7 +22,7 @@ class WelcomePage extends GetView<WelcomeController> {
           color: AppColors.primaryElementText,
           fontFamily: "Montserrat",
           fontWeight: FontWeight.bold,
-          fontSize: 45.sp,
+          fontSize: 45,
         ),
       ),
     );
@@ -32,8 +33,8 @@ class WelcomePage extends GetView<WelcomeController> {
     return Scaffold(
       backgroundColor: AppColors.primaryElement,
       body: Container(
-          width: 360.w,
-          height: 780.h,
+          width: 360,
+          height: 780,
           child: _buildPageHeaderTitle(controller.title)),
     );
   }
