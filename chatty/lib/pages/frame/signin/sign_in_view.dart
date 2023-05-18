@@ -8,20 +8,20 @@ import 'sign_in_index.dart';
 class SignInPage extends GetView<SignInController> {
   const SignInPage({super.key});
 
-  // Widget _buildLogo() {
-  //   return Container(
-  //     margin: EdgeInsets.only(top: 100.h, bottom: 80.h),
-  //     child: Text(
-  //       "Chatty .",
-  //       textAlign: TextAlign.center,
-  //       style: TextStyle(
-  //         color: AppColors.primaryText,
-  //         fontWeight: FontWeight.bold,
-  //         fontSize: 34.sp,
-  //       ),
-  //     ),
-  //   );
-  // }
+  Widget _buildLogo() {
+    return Container(
+      margin: EdgeInsets.only(top: 100.h, bottom: 80.h),
+      child: Text(
+        "Chatty .",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: AppColors.primaryText,
+          fontWeight: FontWeight.bold,
+          fontSize: 34.sp,
+        ),
+      ),
+    );
+  }
 
   // Widget _buildThirdPartyLogin(String loginType, String logo) {
   //   return GestureDetector(
@@ -127,23 +127,23 @@ class SignInPage extends GetView<SignInController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: AppColors.primarySecondaryBackground,
+      backgroundColor: AppColors.primarySecondaryBackground,
       body: Center( 
-        child: Text("Sign In Page"),
-        // child: Column(
-        //   children: [
-        //     _buildLogo(),
-        //     _buildThirdPartyLogin("Google", "google"),
-        //     _buildThirdPartyLogin("Facebook", "facebook"),
-        //     _buildThirdPartyLogin("Apple", "apple"),
-        //     _buildOrWidget(),
-        //     _buildThirdPartyLogin("phone number", ""),
-        //     SizedBox(
-        //       height: 30.h,
-        //     ),
-        //     _buildSignInWidget(),
-        //   ],
-        // ),
+      
+        child: Column(
+          children: [
+            _buildLogo(),
+            // _buildThirdPartyLogin("Google", "google"),
+            // _buildThirdPartyLogin("Facebook", "facebook"),
+            // _buildThirdPartyLogin("Apple", "apple"),
+            // _buildOrWidget(),
+            // _buildThirdPartyLogin("phone number", ""),
+            // SizedBox(
+            //   height: 30.h,
+            // ),
+            // _buildSignInWidget(),
+          ],
+        ),
       ),
     );
   }
