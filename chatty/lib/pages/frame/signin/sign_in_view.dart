@@ -1,4 +1,5 @@
 import 'package:chatty/common/values/colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,9 @@ class SignInPage extends GetView<SignInController> {
     return GestureDetector(
       onTap: () {
         // controller.handleSignIn("google");
+        if (kDebugMode) {
+          print("Signing with $loginType");
+        }
       },
       child: Container(
         width: 295.w,
@@ -71,7 +75,6 @@ class SignInPage extends GetView<SignInController> {
     );
   }
 
-
   Widget _buildOrWidget() {
     return Container(
       margin: EdgeInsets.only(top: 20.h, bottom: 35.h),
@@ -97,40 +100,39 @@ class SignInPage extends GetView<SignInController> {
     );
   }
 
-  // Widget _buildSignInWidget() {
-  //   return Column(
-  //     children: [
-  //       Text(
-  //         "Already have an account?",
-  //         textAlign: TextAlign.center,
-  //         style: TextStyle(
-  //           color: AppColors.primaryText,
-  //           fontWeight: FontWeight.normal,
-  //           fontSize: 12.sp,
-  //         ),
-  //       ),
-  //       GestureDetector(
-  //         onTap: () {},
-  //         child: Text(
-  //           "Sign In Here",
-  //           textAlign: TextAlign.center,
-  //           style: TextStyle(
-  //             color: AppColors.primaryElement,
-  //             fontWeight: FontWeight.normal,
-  //             fontSize: 12.sp,
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+  Widget _buildSignInWidget() {
+    return Column(
+      children: [
+        Text(
+          "Already have an account?",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: AppColors.primaryText,
+            fontWeight: FontWeight.normal,
+            fontSize: 12.sp,
+          ),
+        ),
+        GestureDetector(
+          onTap: () {},
+          child: Text(
+            "Sign In Here",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: AppColors.primaryElement,
+              fontWeight: FontWeight.normal,
+              fontSize: 12.sp,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primarySecondaryBackground,
-      body: Center( 
-      
+      body: Center(
         child: Column(
           children: [
             _buildLogo(),
@@ -138,15 +140,14 @@ class SignInPage extends GetView<SignInController> {
             _buildThirdPartyLogin("Facebook", "facebook"),
             _buildThirdPartyLogin("Apple", "apple"),
             _buildOrWidget(),
-            // _buildThirdPartyLogin("phone number", ""),
-            // SizedBox(
-            //   height: 30.h,
-            // ),
-            // _buildSignInWidget(),
+            _buildThirdPartyLogin("phone number", ""),
+            SizedBox(
+              height: 30.h,
+            ),
+            _buildSignInWidget(),
           ],
         ),
       ),
     );
   }
 }
-

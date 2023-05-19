@@ -9,7 +9,8 @@ class AppColors {
   
   /// primary color
   static const Color primaryElement = Color.fromARGB(255, 74, 123, 246);
-  /// 主文本 黑
+  
+  /// primary color black
   static const Color primaryText = Color.fromARGB(255, 32, 47, 62);
   static const Color primary_bg = Color.fromARGB(210, 32, 47, 62);
   /// 主控件-文本 白色
