@@ -23,20 +23,20 @@ class SignInController extends GetxController {
       } else if (type == "google") {
         var user = await _googleSignIn.signIn();
 
-        // if (user != null) {
-        //   String? displayName = user.displayName;
-        //   String email = user.email;
-        //   String id = user.id;
-        //   String photoUrl = user.photoUrl ?? "assets/icons/google.png";
+        if (user != null) {
+          String? displayName = user.displayName;
+          String email = user.email;
+          String id = user.id;
+          String photoUrl = user.photoUrl ?? "assets/icons/google.png";
 
-        //   LoginRequestEntity loginRequestEntity = LoginRequestEntity();
-        //   loginRequestEntity.avatar = photoUrl;
-        //   loginRequestEntity.name = displayName;
-        //   loginRequestEntity.email = email;
-        //   loginRequestEntity.open_id = id;
-        //   loginRequestEntity.type = 2; 
+          // LoginRequestEntity loginRequestEntity = LoginRequestEntity();
+          // loginRequestEntity.avatar = photoUrl;
+          // loginRequestEntity.name = displayName;
+          // loginRequestEntity.email = email;
+          // loginRequestEntity.open_id = id;
+          // loginRequestEntity.type = 2; 
 
-        // }
+        }
       } else {
         
         if (kDebugMode) {
