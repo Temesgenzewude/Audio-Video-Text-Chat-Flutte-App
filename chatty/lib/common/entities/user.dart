@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginRequestEntity {
+  
   int? type;
   String? name;
   String? description;

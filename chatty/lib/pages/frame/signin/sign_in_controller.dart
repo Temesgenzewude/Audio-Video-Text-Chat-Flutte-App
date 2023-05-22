@@ -29,12 +29,12 @@ class SignInController extends GetxController {
           String id = user.id;
           String photoUrl = user.photoUrl ?? "assets/icons/google.png";
 
-          // LoginRequestEntity loginRequestEntity = LoginRequestEntity();
-          // loginRequestEntity.avatar = photoUrl;
-          // loginRequestEntity.name = displayName;
-          // loginRequestEntity.email = email;
-          // loginRequestEntity.open_id = id;
-          // loginRequestEntity.type = 2; 
+          LoginRequestEntity loginRequestEntity = LoginRequestEntity();
+          loginRequestEntity.avatar = photoUrl;
+          loginRequestEntity.name = displayName;
+          loginRequestEntity.email = email;
+          loginRequestEntity.open_id = id;
+          loginRequestEntity.type = 2; 
 
         }
       } else {
