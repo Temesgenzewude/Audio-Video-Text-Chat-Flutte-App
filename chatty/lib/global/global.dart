@@ -23,5 +23,6 @@ class Global {
     await Get.putAsync<StorageService>(() => StorageService().init());
 
     Get.put<UserStore>(UserStore());
+    
   }
 }
