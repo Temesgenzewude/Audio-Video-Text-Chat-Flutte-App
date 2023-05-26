@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDZFOZA9dNJX01WPne8Vez2aUp9Nxpwhn0',
-    appId: '1:748203004175:android:3b328f2ba5c73e35832e7a',
+    appId: '1:748203004175:android:0db0fff3a1d38bac832e7a',
     messagingSenderId: '748203004175',
     projectId: 'audio-video-flutter-chat-app',
     storageBucket: 'audio-video-flutter-chat-app.appspot.com',
@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDhnSh9wlk5KcAq-peETgU5XOxGA8i3X8Y',
-    appId: '1:748203004175:ios:0acf86943723bbe5832e7a',
+    appId: '1:748203004175:ios:ebc8c8521aaaa826832e7a',
     messagingSenderId: '748203004175',
     projectId: 'audio-video-flutter-chat-app',
     storageBucket: 'audio-video-flutter-chat-app.appspot.com',
-    iosClientId: '748203004175-7e2a51bt794k84ohjpr1ral8cggi91nc.apps.googleusercontent.com',
-    iosBundleId: 'com.dbestech.chatty',
+    iosClientId: '748203004175-nnqkogvgeuouchssjdtf8sl1iu6d8461.apps.googleusercontent.com',
+    iosBundleId: 'com.protonstech.chattyapp',
   );
 }

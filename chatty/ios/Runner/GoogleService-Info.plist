@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>748203004175-7e2a51bt794k84ohjpr1ral8cggi91nc.apps.googleusercontent.com</string>
+	<string>748203004175-nnqkogvgeuouchssjdtf8sl1iu6d8461.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.748203004175-7e2a51bt794k84ohjpr1ral8cggi91nc</string>
+	<string>com.googleusercontent.apps.748203004175-nnqkogvgeuouchssjdtf8sl1iu6d8461</string>
 	
 	<key>API_KEY</key>
 	<string>AIzaSyDhnSh9wlk5KcAq-peETgU5XOxGA8i3X8Y</string>
@@ -14,7 +14,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.dbestech.chatty</string>
+	<string>com.protonstech.chattyapp</string>
 	<key>PROJECT_ID</key>
 	<string>audio-video-flutter-chat-app</string>
 	<key>STORAGE_BUCKET</key>
@@ -30,6 +30,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:748203004175:ios:0acf86943723bbe5832e7a</string>
+	<string>1:748203004175:ios:ebc8c8521aaaa826832e7a</string>
 </dict>
 </plist>

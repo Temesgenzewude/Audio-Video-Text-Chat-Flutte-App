@@ -20,6 +20,21 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+<array>
+   <dict>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+	  <!--//TODO: Replace this value-->
+        
+	    <string>com.googleusercontent.apps.748203004175-nnqkogvgeuouchssjdtf8sl1iu6d8461</string>
+
+ 
+      </array>
+   </dict>
+</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -47,18 +62,6 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<array>
-   <dict>
-      <key>CFBundleTypeRole</key>
-      <string>Editor</string>
-      <key>CFBundleURLSchemes</key>
-      <array>
-	  <!--//TODO: Replace this value-->
-        
-	<string>com.googleusercontent.apps.748203004175-7e2a51bt794k84ohjpr1ral8cggi91nc</string>
- 
-      </array>
-   </dict>
-</array>
+	
 </dict>
 </plist>

@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:748203004175:android:3b328f2ba5c73e35832e7a",
+        "mobilesdk_app_id": "1:748203004175:android:0db0fff3a1d38bac832e7a",
         "android_client_info": {
-          "package_name": "com.dbestech.chatty"
+          "package_name": "com.protonstech.chattyapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "748203004175-dk3iapif51n8krc01871ou9rnqukas7n.apps.googleusercontent.com",
+          "client_id": "748203004175-o2pl7nbmtnh63sq7dmcf1mr2fus245vr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

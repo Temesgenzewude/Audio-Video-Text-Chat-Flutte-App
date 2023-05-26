@@ -24,5 +24,6 @@ class Global {
 
     Get.put<UserStore>(UserStore());
     
+    
   }
 }

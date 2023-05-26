@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 void main() async {
   await Global.init();
   
+  
 
   runApp(const MyApp());
 }
