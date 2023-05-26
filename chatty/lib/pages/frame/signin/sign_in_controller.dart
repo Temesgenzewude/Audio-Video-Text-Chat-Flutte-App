@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../common/routes/routes.dart';
 import 'sign_in_state.dart';
 
 class SignInController extends GetxController {
@@ -34,11 +35,10 @@ class SignInController extends GetxController {
           loginRequestEntity.name = displayName;
           loginRequestEntity.email = email;
           loginRequestEntity.open_id = id;
-          loginRequestEntity.type = 2; 
-
+          loginRequestEntity.type = 2;
+          asyncPostAllData();
         }
       } else {
-        
         if (kDebugMode) {
           print('...login type not known');
         }
@@ -50,5 +50,7 @@ class SignInController extends GetxController {
     }
   }
 
-
+  asyncPostAllData() {
+    Get.offAllNamed(AppRoutes.Message);
+  }
 }
