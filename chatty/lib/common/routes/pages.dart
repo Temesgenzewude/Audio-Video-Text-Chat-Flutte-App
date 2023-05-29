@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 
 import '../../pages/frame/signin/sign_in_index.dart';
 import '../../pages/message/message_index.dart';
+
+import '../../pages/profile_pages/profile_index.dart';
 import 'routes.dart';
 
 class AppPages {
@@ -20,7 +22,7 @@ class AppPages {
       page: () => const WelcomePage(),
       binding: WelcomeBinding(),
     ),
-    
+
     //sing in page
     GetPage(
       name: AppRoutes.SIGN_IN,
@@ -58,11 +60,14 @@ class AppPages {
       middlewares: [
         RouteAuthMiddleware(priority: 1),
       ],
-    ) ,
+    ),
 
+    // Profile page
+    GetPage(
+        name: AppRoutes.Profile,
+        page: () => const ProfilePage(),
+        binding: ProfileBinding()),
     /*
-    //我的
-    GetPage(name: AppRoutes.Profile, page: () => ProfilePage(), binding: ProfileBinding()),
     //聊天详情
     GetPage(name: AppRoutes.Chat, page: () => ChatPage(), binding: ChatBinding()),
 
