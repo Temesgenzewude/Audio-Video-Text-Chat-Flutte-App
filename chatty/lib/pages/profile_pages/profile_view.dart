@@ -21,10 +21,62 @@ class ProfilePage extends GetView<WelcomeController> {
     ));
   }
 
+  Widget _buildProfilePhoto() {
+    return Stack(
+      children: [
+        Container(
+          width: 120.w,
+          height: 120.w,
+          decoration: BoxDecoration(
+              color: AppColors.primarySecondaryBackground,
+              borderRadius: BorderRadius.all(
+                Radius.circular(60.w),
+              ),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: const Offset(0, 1))
+              ]),
+          child: Image(
+            // fit: BoxFit.cover,
+            image: AssetImage("assets/images/account_header.png"),
+          ),
+        ),
+        Positioned(
+          bottom: 20.w,
+          right: 0.w,
+          height: 35.w,
+          child: GestureDetector(
+            child: Container(
+              height: 35.w,
+              width: 35.w,
+              decoration: BoxDecoration(
+                color: AppColors.primaryElement,
+                borderRadius: BorderRadius.circular(40.w),
+              ),
+              child: Image.asset("assets/icons/edit.png"),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: _buildAppBar(),
-        body: SafeArea(child: CustomScrollView(slivers: []),));
+        body: SafeArea(
+          child: CustomScrollView(slivers: [
+            SliverToBoxAdapter(
+              child: Container(
+                  child: Column(
+                children: [_buildProfilePhoto()],
+              )),
+            )
+          ]),
+        ));
   }
 }
