@@ -47,7 +47,21 @@ class MessagePage extends GetView<MessageController> {
                               )
                             : Text("Hi"),
                       ),
-                    )
+                    ),
+                    Positioned(
+                        bottom: 5.w,
+                        right: 0.w,
+                        height: 12.w,
+                        child: Container(
+                            width: 12.w,
+                            height: 12.w,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 2.w,
+                                    color: AppColors.primaryElementText),
+                                color: AppColors.primaryElementStatus,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12.w)))))
                   ],
                 )
               ],
