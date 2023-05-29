@@ -64,6 +64,41 @@ class ProfilePage extends GetView<WelcomeController> {
     );
   }
 
+  Widget _buildCompleteBtn() {
+    return GestureDetector(
+      child: Container(
+        width: 295.w,
+        height: 44.h,
+        margin: EdgeInsets.only(top: 60.h, bottom: 30.h),
+        decoration: BoxDecoration(
+            color: AppColors.primaryElement,
+            borderRadius: BorderRadius.circular(5.w),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: const Offset(0, 1))
+     
+            ]),
+            child:Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              
+              children: [
+          Text(
+            "Complete",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: AppColors.primaryElementText,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.normal),
+          )
+        ]),
+      ),
+
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +108,7 @@ class ProfilePage extends GetView<WelcomeController> {
             SliverToBoxAdapter(
               child: Container(
                   child: Column(
-                children: [_buildProfilePhoto()],
+                children: [_buildProfilePhoto(), _buildCompleteBtn()],
               )),
             )
           ]),
