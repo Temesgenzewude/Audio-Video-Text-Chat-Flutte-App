@@ -42,7 +42,7 @@ class UserStore extends GetxController {
     // var result = await UserAPI.profile();
     // _profile(result);
     // _isLogin.value = true;
-   return StorageService.to.getString(STORAGE_USER_PROFILE_KEY);
+    return StorageService.to.getString(STORAGE_USER_PROFILE_KEY);
   }
 
   // save profile
@@ -55,11 +55,11 @@ class UserStore extends GetxController {
 
   // called during logout
   Future<void> onLogout() async {
-   // if (_isLogin.value) await UserAPI.logout();
-    await StorageService.to.remove(STORAGE_USER_TOKEN_KEY);
+    // if (_isLogin.value) await UserAPI.logout();
+    /*await StorageService.to.remove(STORAGE_USER_TOKEN_KEY);
     await StorageService.to.remove(STORAGE_USER_PROFILE_KEY);
     _isLogin.value = false;
-    token = '';
+    token = '';*/
     Get.offAllNamed(AppRoutes.SIGN_IN);
   }
 }
