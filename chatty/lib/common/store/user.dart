@@ -10,7 +10,7 @@ class UserStore extends GetxController {
 
   //to check whether the user has logged in or not
   final _isLogin = false.obs;
-  // token
+  //login token
   String token = '';
   //user profile
   final _profile = UserItem().obs;
@@ -18,6 +18,8 @@ class UserStore extends GetxController {
   bool get isLogin => _isLogin.value;
   UserItem get profile => _profile.value;
   bool get hasToken => token.isNotEmpty;
+  set setIsLogin(login) => _isLogin.value = login;
+  
 
   @override
   void onInit() {

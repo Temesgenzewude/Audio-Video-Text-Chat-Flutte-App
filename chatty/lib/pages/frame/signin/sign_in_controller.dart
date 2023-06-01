@@ -1,4 +1,5 @@
 import 'package:chatty/common/entities/entities.dart';
+import 'package:chatty/common/store/store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -50,7 +51,15 @@ class SignInController extends GetxController {
     }
   }
 
-  asyncPostAllData() {
+  asyncPostAllData() async {
+
+    /*
+
+    first save in the database 
+    second save in the local storage
+    */
+    UserStore.to.setIsLogin = true;
+
     Get.offAllNamed(AppRoutes.Message);
   }
 }
