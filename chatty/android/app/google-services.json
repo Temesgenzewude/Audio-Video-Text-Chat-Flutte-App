@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "748203004175-nug79ojpnpkqel7okgpr13s4tp9293aj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.protonstech.chattyapp",
+            "certificate_hash": "47ddd053338969aa6a888605a60541189acb54f0"
+          }
+        },
+        {
           "client_id": "748203004175-o2pl7nbmtnh63sq7dmcf1mr2fus245vr.apps.googleusercontent.com",
           "client_type": 3
         }

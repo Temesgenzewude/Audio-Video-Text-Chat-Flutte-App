@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../common/routes/routes.dart';
+import '../../../common/utils/utils.dart';
 import 'sign_in_state.dart';
 
 class SignInController extends GetxController {
@@ -16,6 +17,7 @@ class SignInController extends GetxController {
 
   void handleSignIn(String type) async {
     //1->Email 2->Google 3->Facebook 4->Apple 5-> Phone number
+    print("....signin processing.....");
 
     try {
       if (type == "phone number") {
@@ -24,6 +26,12 @@ class SignInController extends GetxController {
         }
       } else if (type == "google") {
         var user = await _googleSignIn.signIn();
+
+        if (user != null) {
+          print("Successfully signedin");
+        } else {
+          print("Error while signing in");
+        }
 
         if (user != null) {
           String? displayName = user.displayName;
@@ -52,13 +60,14 @@ class SignInController extends GetxController {
   }
 
   asyncPostAllData() async {
-
     /*
 
     first save in the database 
     second save in the local storage
     */
     UserStore.to.setIsLogin = true;
+    var response = await HttpUtil().get("index");
+    print(response);
 
     Get.offAllNamed(AppRoutes.Message);
   }
