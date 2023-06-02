@@ -25,6 +25,12 @@ class LoginController extends Controller{
                 "data"=>"Invalid data",
                 "message"=>$validator->errors()->first()
             ]);
+        }else{
+            return response()->json([
+                "code"=>0,
+                "data"=>"Valid data",
+                "message"=>"Success"
+            ]);
         }
     }
 }
