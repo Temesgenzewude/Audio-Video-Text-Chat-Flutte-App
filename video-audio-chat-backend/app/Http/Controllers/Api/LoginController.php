@@ -42,13 +42,16 @@ class LoginController extends Controller
 
       $res = DB::table("users")->select("avatar","name","description","type","token","access_token","online")->where($map)->first();
       if(empty($res)){
-       // $validated["token"] = md5(uniqid().rand(10000,99999));
-       // $validated["created_at"] = Carbon::now();
-       // $validated["access_token"] = md5(uniqid().rand(1000000,9999999));
-       // $validated["expire_date"] = Carbon::now()->addDays(30);
-       // $user_id = DB::table("users")->insertGetId($validated);
-       // $user_res = DB::table("users")->select("avatar","name","description","type","access_token","token","online")->where("id","=",$user_id)->first();
-        return ["code" => 0, "data" => $res, "msg" => "No user found"];
+       $validated["token"] = md5(uniqid().rand(10000,99999));
+       $validated["created_at"] = Carbon::now();
+       $validated["access_token"] = md5(uniqid().rand(1000000,9999999));
+       $validated["expire_date"] = Carbon::now()->addDays(30);
+       $user_id = DB::table("users")->insertGetId($validated);
+       $user_res = DB::table("users")->select("avatar","name","description","type","access_token","token","online")->where("id","=",$user_id)->first();
+        return ["code" => 0, "data" => $user_res, "msg" => "User Created Successfully"];
+      }else{
+        return ["code" => 1, "data" => $res, "msg" => "User already exists"];
+
       }
       
     //   $access_token = md5(uniqid().rand(1000000,9999999));
