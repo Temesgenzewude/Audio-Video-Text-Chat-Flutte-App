@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:chatty/common/apis/apis.dart';
 import 'package:chatty/common/entities/entities.dart';
 import 'package:chatty/common/store/store.dart';
+import 'package:chatty/common/widgets/toast.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -68,14 +71,22 @@ class SignInController extends GetxController {
     first save in the database 
     second save in the local storage
     */
-    UserLoginResponseEntity userLoginResponseEntity =
-        await UserAPI.Login(params: loginRequestEntity);
+    EasyLoading.show(
+        indicator: CircularProgressIndicator(),
+        maskType: EasyLoadingMaskType.clear,
+        dismissOnTap: true);
+    var result = await UserAPI.Login(params: loginRequestEntity);
 
-    if (userLoginResponseEntity != null && userLoginResponseEntity.code == 0) {
+    if (result.code == 0) {
       if (kDebugMode) {
         print("...successfully saved user info...");
-        print(userLoginResponseEntity.msg);
+        print(result.msg);
       }
+      await UserStore.to.saveProfile(result.data!);
+      EasyLoading.dismiss();
+    } else {
+      EasyLoading.dismiss();
+      toastInfo(msg: result.msg!);
     }
 
     Get.offAllNamed(AppRoutes.Message);
