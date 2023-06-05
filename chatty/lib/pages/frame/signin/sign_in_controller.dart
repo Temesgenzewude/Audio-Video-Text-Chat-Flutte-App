@@ -51,7 +51,7 @@ class SignInController extends GetxController {
           loginRequestEntity.email = email;
           loginRequestEntity.open_id = id;
           loginRequestEntity.type = 2;
-          asyncPostAllData(loginRequestEntity);
+         await asyncPostAllData(loginRequestEntity);
         }
       } else {
         if (kDebugMode) {

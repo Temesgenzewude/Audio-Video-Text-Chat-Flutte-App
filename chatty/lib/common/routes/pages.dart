@@ -4,6 +4,7 @@ import 'package:chatty/common/middlewares/middlewares.dart';
 
 import 'package:get/get.dart';
 
+import '../../pages/contact/contact_index.dart';
 import '../../pages/frame/signin/sign_in_index.dart';
 import '../../pages/message/message_index.dart';
 
@@ -49,9 +50,13 @@ class AppPages {
     GetPage(name: AppRoutes.Phone, page: () => PhonePage(), binding: PhoneBinding()),
     GetPage(name: AppRoutes.SendCode, page: () => SendCodePage(), binding: SendCodeBinding()),
     // 首页
-    GetPage(name: AppRoutes.Contact, page: () => ContactPage(), binding: ContactBinding()),
-    //消息
     */
+    // contact page
+    GetPage(name: AppRoutes.Contact, 
+    page: () => ContactPage(),
+     binding: ContactBinding()),
+    
+    
     // message page
     GetPage(
       name: AppRoutes.Message,

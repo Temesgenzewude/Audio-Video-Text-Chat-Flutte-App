@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../common/routes/names.dart';
 import 'message_index.dart';
 
 class MessagePage extends GetView<MessageController> {
@@ -83,6 +84,34 @@ class MessagePage extends GetView<MessageController> {
               pinned: true,
             )
           ],
+        ),
+        Positioned(
+          right: 20.w,
+          bottom: 70.h,
+          height: 50.w,
+          width: 50.w,
+          child: GestureDetector(
+            child: Container(
+                height: 50.w,
+                width: 50.w,
+                padding: EdgeInsets.all(10.w),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryElement,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 2,
+                      blurRadius: 2,
+                      offset: Offset(1, 1), // changes position of shadow
+                    ),
+                  ],
+                  borderRadius: BorderRadius.all(Radius.circular(40.w)),
+                ),
+                child: Image.asset("assets/icons/contact.png")),
+            onTap: () {
+              Get.toNamed(AppRoutes.Contact);
+            },
+          ),
         )
       ]),
     ));
