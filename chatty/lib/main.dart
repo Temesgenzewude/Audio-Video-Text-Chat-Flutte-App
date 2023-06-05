@@ -9,8 +9,6 @@ import 'package:get/get.dart';
 
 void main() async {
   await Global.init();
-  
-  
 
   runApp(const MyApp());
 }
@@ -24,11 +22,11 @@ class MyApp extends StatelessWidget {
         designSize: const Size(360, 780),
         builder: (context, child) => GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              builder: EasyLoading.init(),
               title: 'Chatty .',
               theme: AppTheme.light,
               initialRoute: AppPages.INITIAL,
               getPages: AppPages.routes,
+              builder: EasyLoading.init(),
             ));
   }
 }

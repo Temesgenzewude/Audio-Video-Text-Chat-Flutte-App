@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:chatty/common/apis/apis.dart';
 import 'package:chatty/common/entities/entities.dart';
 import 'package:chatty/common/store/store.dart';
 import 'package:flutter/foundation.dart';
@@ -45,7 +48,7 @@ class SignInController extends GetxController {
           loginRequestEntity.email = email;
           loginRequestEntity.open_id = id;
           loginRequestEntity.type = 2;
-          asyncPostAllData();
+          asyncPostAllData(loginRequestEntity);
         }
       } else {
         if (kDebugMode) {
@@ -59,15 +62,21 @@ class SignInController extends GetxController {
     }
   }
 
-  asyncPostAllData() async {
+  asyncPostAllData(LoginRequestEntity loginRequestEntity) async {
     /*
 
     first save in the database 
     second save in the local storage
     */
-    UserStore.to.setIsLogin = true;
-    var response = await HttpUtil().get("index");
-    print(response);
+    UserLoginResponseEntity userLoginResponseEntity =
+        await UserAPI.Login(params: loginRequestEntity);
+
+    if (userLoginResponseEntity != null && userLoginResponseEntity.code == 0) {
+      if (kDebugMode) {
+        print("...successfully saved user info...");
+        print(userLoginResponseEntity.msg);
+      }
+    }
 
     Get.offAllNamed(AppRoutes.Message);
   }
