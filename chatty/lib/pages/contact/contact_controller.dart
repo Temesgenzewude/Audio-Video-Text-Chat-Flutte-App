@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:chatty/common/apis/apis.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,6 @@ class ContactController extends GetxController {
   final ContactState state = ContactState();
   // final db = FirebaseFirestore.instance;
   // final token = UserStore.to.profile.token;
-
 
   // goChat(ContactItem contactItem) async{
 
@@ -63,32 +63,34 @@ class ContactController extends GetxController {
   //   }
 
   // }
-  
-  // // 拉取数据
-  // asyncLoadAllData() async {
-  //   EasyLoading.show(
-  //       indicator: CircularProgressIndicator(),
-  //       maskType: EasyLoadingMaskType.clear,
-  //       dismissOnTap: true);
-  //   state.contactList.clear();
-  //   var result = await ContactAPI.post_contact();
-  //   print(result.data!);
-  //   if(result.code==0){
-  //     state.contactList.addAll(result.data!);
-  //   }
-  //   EasyLoading.dismiss();
-  // }
+
+  // 拉取数据
+  asyncLoadAllData() async {
+    EasyLoading.show(
+        indicator: CircularProgressIndicator(),
+        maskType: EasyLoadingMaskType.clear,
+        dismissOnTap: true);
+    state.contactList.clear();
+    var result = await ContactAPI.post_contact();
+    if (kDebugMode) {
+      print(result.data!);
+    }
+    if (result.code == 0) {
+      state.contactList.addAll(result.data!);
+    }
+    EasyLoading.dismiss();
+  }
   // /// 初始
   // @override
   // void onInit() {
   //   super.onInit();
 
   // }
-  // @override
-  // void onReady() {
-  //   super.onReady();
-  //  asyncLoadAllData();
-  // }
+  @override
+  void onReady() {
+    super.onReady();
+    asyncLoadAllData();
+  }
   // @override
   // void onClose() {
   //   super.onClose();
