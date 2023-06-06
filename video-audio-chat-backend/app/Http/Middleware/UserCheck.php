@@ -32,14 +32,14 @@ class UserCheck
         ->select("id","avatar","name","type","token","access_token","expire_date")
         ->first();
         if (empty($res_user)) {
-           return response(['code'=>401,'message'=>"User does not exist, please log in\!"],401);
+           return response(['code'=>401,'message'=>"User does not exist, please log in!"],401);
         }
         $expire_date = $res_user->expire_date;
         if(empty($expire_date)){
-           return response(['code'=>401,'message'=>"The token has expired, please log in again\!"],401);
+           return response(['code'=>401,'message'=>"The token has expired, please log in again!"],401);
         }
         if($expire_date<Carbon::now()){
-            return response(['code'=>401,'message'=>"The token has expired, please log in again\!"],401);
+            return response(['code'=>401,'message'=>"The token has expired, please log in again!"],401);
         }
          $addtime = Carbon::now()->addDays(5);
         if($expire_date<$addtime){
@@ -47,11 +47,11 @@ class UserCheck
             DB::table("users")->where('access_token', $access_token)->update(["expire_date"=>$add_expire_date]);
         }
         
-        // $request->user_id = $res_user->id;
-        // $request->user_type = $res_user->type;
-        // $request->user_avatar = $res_user->avatar;
-        // $request->user_name = $res_user->name;
-        // $request->user_token = $res_user->token;
+        $request->user_id = $res_user->id;
+        $request->user_type = $res_user->type;
+        $request->user_avatar = $res_user->avatar;
+        $request->user_name = $res_user->name;
+        $request->user_token = $res_user->token;
         
         return $next($request);
     }
