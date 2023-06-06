@@ -95,26 +95,25 @@ class ContactList extends GetView<ContactController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: Text("Contact List Page")),
-    );
-    // return Obx(() {
-    //   return CustomScrollView(slivers: [
-    //     SliverPadding(
-    //       padding: EdgeInsets.symmetric(
-    //         vertical: 0.w,
-    //         horizontal: 20.w,
-    //       ),
-    //       sliver: SliverList(
-    //           delegate: SliverChildBuilderDelegate(
-    //                 (content, index) {
-    //               var item = controller.state.contactList[index];
-    //               return buildListItem(item);
-    //             },
-    //             childCount: controller.state.contactList.length,
-    //           )),
-    //     )
-    //   ]);
-    // });
+    // Obx auto update the UI when the state changes
+    return Obx(() {
+      return CustomScrollView(slivers: [
+        SliverPadding(
+          padding: EdgeInsets.symmetric(
+            vertical: 0.w,
+            horizontal: 20.w,
+          ),
+          sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+            (content, index) {
+              var item = controller.state.contactList[index];
+              print(item.name);
+              // return buildListItem(item);
+            },
+            childCount: controller.state.contactList.length,
+          )),
+        )
+      ]);
+    });
   }
 }
