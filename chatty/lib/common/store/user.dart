@@ -19,13 +19,14 @@ class UserStore extends GetxController {
   UserItem get profile => _profile.value;
   bool get hasToken => token.isNotEmpty;
   // set setIsLogin(login) => _isLogin.value = login;
-  
 
   @override
   void onInit() {
     super.onInit();
     token = StorageService.to.getString(STORAGE_USER_TOKEN_KEY);
     var profileOffline = StorageService.to.getString(STORAGE_USER_PROFILE_KEY);
+
+    print(profileOffline);
     if (profileOffline.isNotEmpty) {
       _isLogin.value = true;
       _profile(UserItem.fromJson(jsonDecode(profileOffline)));
