@@ -19,14 +19,14 @@ class UserCheck
     public function handle($request, Closure $next)
     {
         
-        $Authorization = $refquest->header('Authorization');
+        $Authorization = $request->header('Authorization');
        
         if (empty($Authorization)) {
            
             return response(['code'=>401,'message'=>"Authentication failed"],401);
         }
-        return $next($refquest);
-        // $access_token = trim(ltrim($Authorization, 'Bearer'));
+       
+        $access_token = trim(ltrim($Authorization, 'Bearer'));
         // $res_user = DB::table("users")
         // ->where('access_token', $access_token)
         // ->select("id","avatar","name","type","token","access_token","expire_date")
@@ -53,7 +53,7 @@ class UserCheck
         // $request->user_name = $res_user->name;
         // $request->user_token = $res_user->token;
         
-        // return $next($request);
+        return $next($request);
     }
 
 }
