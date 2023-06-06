@@ -118,12 +118,12 @@ class LoginController extends Controller
       
 //       return ["code" => 0, "data" => "", "msg" => "success"];
 //   }
-  // public function contact(Request $request){
-  //     $token = $request->user_token;
-  //     $res =DB::table("users")->select("avatar","name","description","online","token")->get(); //->where("token","!=",$token)
-  //     return ["code" => 0, "data" => $res, "msg" => "success"];
+  public function contact(Request $request){
+      $token = $request->user_token;
+      $res =DB::table("users")->select("avatar","name","description","online","token")->where("token","!=",$token)->get(); //->where("token","!=",$token)
+      return ["code" => 0, "data" => $res, "msg" => "success"];
       
- // }
+  }
 //   public function send_notice(Request $request){
 //       $user_token = $request->user_token;
 //       $user_avatar = $request->user_avatar;
