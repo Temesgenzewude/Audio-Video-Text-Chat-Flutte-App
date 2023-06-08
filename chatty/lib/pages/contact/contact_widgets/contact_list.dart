@@ -53,7 +53,7 @@ class ContactList extends GetView<ContactController> {
                     )),
               ),
               //
-              /*Container(
+              Container(
                 width: 275.w,
                 padding: EdgeInsets.only(
                     top: 15.w, left: 10.w, right: 0.w, bottom: 0.w),
@@ -86,7 +86,7 @@ class ContactList extends GetView<ContactController> {
                     )
                   ],
                 ),
-              ),*/
+              ),
 
             ],
           )),
