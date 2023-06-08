@@ -36,7 +36,7 @@ class ContactController extends GetxController {
     .where("to_token", isEqualTo: token)
     .get();
 
-    /*
+    
 
     if(from_messages.docs.isEmpty && to_messages.docs.isEmpty){
       print("----from_messages--to_messages--empty--");
@@ -54,12 +54,16 @@ class ContactController extends GetxController {
         last_time:Timestamp.now(),
         msg_num:0,
       );
-      var doc_id = await db.collection("message").withConverter(
+      
+      /*var doc_id = await db.collection("message").withConverter(
         fromFirestore: Msg.fromFirestore,
         toFirestore: (Msg msg, options) => msg.toFirestore(),
       ).add(msgdata);
-      Get.offAndToNamed("/chat", parameters: {"doc_id": doc_id.id,"to_token":contactItem.token??"","to_name":contactItem.name??"","to_avatar":contactItem.avatar??"","to_online":contactItem.online.toString()});
-    }else{
+      Get.offAndToNamed("/chat", parameters: {"doc_id": doc_id.id,"to_token":contactItem.token??"",
+      "to_name":contactItem.name??"","to_avatar":contactItem.avatar??"",
+      "to_online":contactItem.online.toString()});*/
+    }
+    /*else{
       if(!from_messages.docs.isEmpty){
         print("---from_messages");
         print(from_messages.docs.first.id);
