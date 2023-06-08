@@ -16,54 +16,63 @@ class ContactController extends GetxController {
   final db = FirebaseFirestore.instance;
   final token = UserStore.to.profile.token;
 
-  goChat(ContactItem contactItem) async{
+  goChat(ContactItem contactItem) async {
+    var from_messages = await db
+        .collection("message")
+        .withConverter(
+          fromFirestore: Msg.fromFirestore,
+          toFirestore: (Msg msg, options) => msg.toFirestore(),
+        )
+        .where("from_token", isEqualTo: token)
+        .where("to_token", isEqualTo: contactItem.token)
+        .get();
 
-    var from_messages = await db.collection("message")
-    .withConverter(
-      fromFirestore: Msg.fromFirestore,
-      toFirestore: (Msg msg, options) => msg.toFirestore(),
-    ).where("from_token", isEqualTo: token)
-    .where("to_token", isEqualTo: contactItem.token)
-    .get();
+    print("...from_messages ${from_messages.docs.isEmpty}");
 
+    var to_messages = await db
+        .collection("message")
+        .withConverter(
+          fromFirestore: Msg.fromFirestore,
+          toFirestore: (Msg msg, options) => msg.toFirestore(),
+        )
+        .where("from_token", isEqualTo: contactItem.token)
+        .where("to_token", isEqualTo: token)
+        .get();
 
-    var to_messages = await db.collection("message")
-    .withConverter(
-      fromFirestore: Msg.fromFirestore,
-      toFirestore: (Msg msg, options) => msg.toFirestore(),
-    )
-    .where("from_token", isEqualTo: contactItem.token)
-    .where("to_token", isEqualTo: token)
-    .get();
+    print("...to_messages ${to_messages.docs.isEmpty}");
 
-    
-
-    if(from_messages.docs.isEmpty && to_messages.docs.isEmpty){
+    if (from_messages.docs.isEmpty && to_messages.docs.isEmpty) {
       print("----from_messages--to_messages--empty--");
-       var profile = UserStore.to.profile;
-       var msgdata = new Msg(
-        from_token:profile.token,
-        to_token:contactItem.token,
-        from_name:profile.name,
-        to_name:contactItem.name,
-        from_avatar:profile.avatar,
-        to_avatar:contactItem.avatar,
-        from_online:profile.online,
-        to_online:contactItem.online,
-        last_msg:"",
-        last_time:Timestamp.now(),
-        msg_num:0,
+      var profile = UserStore.to.profile;
+      var msgdata = new Msg(
+        from_token: profile.token,
+        to_token: contactItem.token,
+        from_name: profile.name,
+        to_name: contactItem.name,
+        from_avatar: profile.avatar,
+        to_avatar: contactItem.avatar,
+        from_online: profile.online,
+        to_online: contactItem.online,
+        last_msg: "",
+        last_time: Timestamp.now(),
+        msg_num: 0,
       );
-      
-      var doc_id = await db.collection("message").withConverter(
-        fromFirestore: Msg.fromFirestore,
-        toFirestore: (Msg msg, options) => msg.toFirestore(),
-      ).add(msgdata);
-      Get.offAndToNamed("/chat", parameters: {"doc_id": doc_id.id,"to_token":contactItem.token??"",
+
+      var doc_id = await db
+          .collection("message")
+          .withConverter(
+            fromFirestore: Msg.fromFirestore,
+            toFirestore: (Msg msg, options) => msg.toFirestore(),
+          )
+          .add(msgdata);
+
+      print("...creating new document and adding user info done...");
+      /*Get.offAndToNamed("/chat", parameters: {"doc_id": doc_id.id,"to_token":contactItem.token??"",
       "to_name":contactItem.name??"","to_avatar":contactItem.avatar??"",
-      "to_online":contactItem.online.toString()});
-    }
-    /*else{
+      "to_online":contactItem.online.toString()});*/
+    } else {
+      print("...users are older...");
+      /*
       if(!from_messages.docs.isEmpty){
         print("---from_messages");
         print(from_messages.docs.first.id);
@@ -74,9 +83,8 @@ class ContactController extends GetxController {
         print(to_messages.docs.first.id);
         Get.offAndToNamed("/chat", parameters: {"doc_id": to_messages.docs.first.id,"to_token":contactItem.token??"","to_name":contactItem.name??"","to_avatar":contactItem.avatar??"","to_online":contactItem.online.toString()});
       }
-
-    }*/
-
+*/
+    }
   }
 
   // 拉取数据

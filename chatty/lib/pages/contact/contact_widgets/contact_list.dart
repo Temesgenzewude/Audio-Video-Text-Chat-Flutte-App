@@ -18,7 +18,7 @@ class ContactList extends GetView<ContactController> {
                   width: 1, color: AppColors.primarySecondaryBackground))),
       child: InkWell(
           onTap: () {
-            // controller.goChat(item);
+            controller.goChat(item);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
