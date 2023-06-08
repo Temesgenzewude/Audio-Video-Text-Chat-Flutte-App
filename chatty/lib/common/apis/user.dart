@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:chatty/common/entities/entities.dart';
 import 'package:chatty/common/utils/utils.dart';
 import 'package:chatty/common/values/values.dart';
@@ -6,10 +8,12 @@ class UserAPI {
   static Future<UserLoginResponseEntity> Login({
     LoginRequestEntity? params,
   }) async {
+    // print("Calling Login API");
     var response = await HttpUtil().post(
       'api/login',
       queryParameters: params?.toJson(),
     );
+   // print(jsonEncode(response));
     return UserLoginResponseEntity.fromJson(response);
   }
 
@@ -19,6 +23,7 @@ class UserAPI {
     );
     return UserLoginResponseEntity.fromJson(response);
   }
+
   static Future<BaseResponseEntity> UpdateProfile({
     LoginRequestEntity? params,
   }) async {
@@ -28,6 +33,4 @@ class UserAPI {
     );
     return BaseResponseEntity.fromJson(response);
   }
-
-
 }

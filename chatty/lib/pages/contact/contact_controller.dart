@@ -87,10 +87,9 @@ class ContactController extends GetxController {
 
   // }
   @override
-  void onReady() async {
-    //TODO: remove the async and await from here
+  void onReady() {
     super.onReady();
-    await asyncLoadAllData();
+    asyncLoadAllData();
   }
   // @override
   // void onClose() {

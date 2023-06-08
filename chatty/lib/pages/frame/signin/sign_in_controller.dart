@@ -51,7 +51,7 @@ class SignInController extends GetxController {
           loginRequestEntity.email = email;
           loginRequestEntity.open_id = id;
           loginRequestEntity.type = 2;
-         await asyncPostAllData(loginRequestEntity);
+          asyncPostAllData(loginRequestEntity);
         }
       } else {
         if (kDebugMode) {
@@ -80,7 +80,7 @@ class SignInController extends GetxController {
     if (result.code == 0) {
       if (kDebugMode) {
         print("...successfully saved user info...");
-        print(result.msg);
+        // print(result.msg);
       }
       await UserStore.to.saveProfile(result.data!);
       EasyLoading.dismiss();
