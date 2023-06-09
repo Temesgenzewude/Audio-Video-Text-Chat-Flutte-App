@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../pages/contact/contact_index.dart';
 import '../../pages/frame/signin/sign_in_index.dart';
+import '../../pages/message/chat/chat_index.dart';
 import '../../pages/message/message_index.dart';
 
 import '../../pages/profile_pages/profile_index.dart';
@@ -72,11 +73,11 @@ class AppPages {
         name: AppRoutes.Profile,
         page: () => const ProfilePage(),
         binding: ProfileBinding()),
-    /*
-    //聊天详情
+    
+    //chat page
     GetPage(name: AppRoutes.Chat, page: () => ChatPage(), binding: ChatBinding()),
 
-    GetPage(name: AppRoutes.Photoimgview, page: () => PhotoImgViewPage(), binding: PhotoImgViewBinding()),
+   /* GetPage(name: AppRoutes.Photoimgview, page: () => PhotoImgViewPage(), binding: PhotoImgViewBinding()),
     GetPage(name: AppRoutes.VoiceCall, page: () => VoiceCallViewPage(), binding: VoiceCallViewBinding()),
     GetPage(name: AppRoutes.VideoCall, page: () => VideoCallPage(), binding: VideoCallBinding()),*/
   ];
