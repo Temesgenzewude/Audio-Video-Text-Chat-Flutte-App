@@ -67,7 +67,7 @@ class ContactController extends GetxController {
           .add(msgdata);
 
       print("...creating new document and adding user info done...");
-      Get.offAndToNamed("/chat", parameters: {
+      Get.toNamed("/chat", parameters: {
         "doc_id": doc_id.id,
         "to_token": contactItem.token ?? "",
         "to_name": contactItem.name ?? "",
@@ -80,7 +80,7 @@ class ContactController extends GetxController {
       if (!from_messages.docs.isEmpty) {
         print("---from_messages");
         print(from_messages.docs.first.id);
-        Get.offAndToNamed("/chat", parameters: {
+        Get.toNamed("/chat", parameters: {
           "doc_id": from_messages.docs.first.id,
           "to_token": contactItem.token ?? "",
           "to_name": contactItem.name ?? "",
@@ -92,7 +92,7 @@ class ContactController extends GetxController {
       if (!to_messages.docs.isEmpty) {
         print("---to_messages");
         print(to_messages.docs.first.id);
-        Get.offAndToNamed("/chat", parameters: {
+        Get.toNamed("/chat", parameters: {
           "doc_id": to_messages.docs.first.id,
           "to_token": contactItem.token ?? "",
           "to_name": contactItem.name ?? "",
