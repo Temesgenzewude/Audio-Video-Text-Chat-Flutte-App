@@ -42,9 +42,9 @@ class ChatController extends GetxController {
   // File? _photo;
   // final ImagePicker _picker = ImagePicker();
 
-  // goMore(){
-  //   state.more_status.value = state.more_status.value?false:true;
-  // }
+  goMore(){
+    state.more_status.value = state.more_status.value?false:true;
+  }
 
   // callAudio() async{
   //   state.more_status.value = false;

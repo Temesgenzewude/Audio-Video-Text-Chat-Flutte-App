@@ -95,12 +95,11 @@ class ChatPage extends GetView<ChatController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: _buildAppBar(),
-        body: SafeArea(
-            child: ConstrainedBox(
-          constraints: BoxConstraints.expand(),
-          child: Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
+        body: Obx(
+          () => SafeArea(
+              child: ConstrainedBox(
+            constraints: BoxConstraints.expand(),
+            child: Stack(alignment: Alignment.center, children: <Widget>[
               // ChatList(),
               Positioned(
                 bottom: 0.h,
@@ -180,146 +179,146 @@ class ChatPage extends GetView<ChatController> {
                           ])),
                       GestureDetector(
                           child: Container(
-                            height: 40.w,
-                            width: 40.w,
-                            padding: EdgeInsets.all(8.w),
-                            decoration: BoxDecoration(
-                              color: AppColors.primaryElement,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(
-                                      1, 1), // changes position of shadow
-                                ),
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40.w)),
-                            ),
-                            //child: controller.state.more_status.value
-                            //  ? Image.asset("assets/icons/by.png")
-                            // : Image.asset("assets/icons/add.png")
-                            child: Image.asset("assets/icons/add.png"),
-                          ),
+                              height: 40.w,
+                              width: 40.w,
+                              padding: EdgeInsets.all(8.w),
+                              decoration: BoxDecoration(
+                                color: AppColors.primaryElement,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    spreadRadius: 2,
+                                    blurRadius: 2,
+                                    offset: Offset(
+                                        1, 1), // changes position of shadow
+                                  ),
+                                ],
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40.w)),
+                              ),
+                              child: controller.state.more_status.value
+                                  ? Image.asset("assets/icons/by.png")
+                                  : Image.asset("assets/icons/add.png")
+                              // child: Image.asset("assets/icons/add.png"),
+                              ),
                           onTap: () {
-                            // controller.goMore();
+                            controller.goMore();
                           }),
                     ],
                   ),
                 ),
               ),
 
-              //controller.state.more_status.value ?
-              Positioned(
-                  right: 20.w,
-                  bottom: 70.h,
-                  height: 200.w,
-                  width: 40.w,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      GestureDetector(
-                        child: Container(
-                            height: 40.w,
-                            width: 40.w,
-                            padding: EdgeInsets.all(10.w),
-                            decoration: BoxDecoration(
-                              color: AppColors.primaryBackground,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(
-                                      1, 1), // changes position of shadow
+              controller.state.more_status.value
+                  ? Positioned(
+                      right: 20.w,
+                      bottom: 70.h,
+                      height: 200.w,
+                      width: 40.w,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          GestureDetector(
+                            child: Container(
+                                height: 40.w,
+                                width: 40.w,
+                                padding: EdgeInsets.all(10.w),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primaryBackground,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 2,
+                                      offset: Offset(
+                                          1, 1), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(40.w)),
                                 ),
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40.w)),
-                            ),
-                            child: Image.asset("assets/icons/file.png")),
-                        onTap: () {
-                          //  controller.imgFromGallery();
-                        },
-                      ),
-                      // GestureDetector(
-                      //   child: Container(
-                      //       height: 40.w,
-                      //       width: 40.w,
-                      //       padding: EdgeInsets.all(10.w),
-                      //       decoration: BoxDecoration(
-                      //         color: AppColors.primaryBackground,
-                      //         boxShadow: [
-                      //           BoxShadow(
-                      //             color: Colors.grey.withOpacity(0.2),
-                      //             spreadRadius: 2,
-                      //             blurRadius: 2,
-                      //             offset: Offset(
-                      //                 1, 1), // changes position of shadow
-                      //           ),
-                      //         ],
-                      //         borderRadius:
-                      //             BorderRadius.all(Radius.circular(40.w)),
-                      //       ),
-                      //       child: Image.asset("assets/icons/photo.png")),
-                      //   onTap: () {
-                      //     // controller.imgFromCamera();
-                      //   },
-                      // ),
-                      // GestureDetector(
-                      //   child: Container(
-                      //       height: 40.w,
-                      //       width: 40.w,
-                      //       padding: EdgeInsets.all(10.w),
-                      //       decoration: BoxDecoration(
-                      //         color: AppColors.primaryBackground,
-                      //         boxShadow: [
-                      //           BoxShadow(
-                      //             color: Colors.grey.withOpacity(0.2),
-                      //             spreadRadius: 2,
-                      //             blurRadius: 2,
-                      //             offset: Offset(
-                      //                 1, 1), // changes position of shadow
-                      //           ),
-                      //         ],
-                      //         borderRadius:
-                      //             BorderRadius.all(Radius.circular(40.w)),
-                      //       ),
-                      //       child: Image.asset("assets/icons/call.png")),
-                      //   onTap: () {
-                      //     //  controller.callAudio();
-                      //   },
-                      // ),
-                      // GestureDetector(
-                      //   child: Container(
-                      //       height: 40.w,
-                      //       width: 40.w,
-                      //       padding: EdgeInsets.all(10.w),
-                      //       decoration: BoxDecoration(
-                      //         color: AppColors.primaryBackground,
-                      //         boxShadow: [
-                      //           BoxShadow(
-                      //             color: Colors.grey.withOpacity(0.2),
-                      //             spreadRadius: 2,
-                      //             blurRadius: 2,
-                      //             offset: Offset(
-                      //                 1, 1), // changes position of shadow
-                      //           ),
-                      //         ],
-                      //         borderRadius:
-                      //             BorderRadius.all(Radius.circular(40.w)),
-                      //       ),
-                      //       child: Image.asset("assets/icons/video.png")),
-                      //   onTap: () {
-                      //     // controller.callVideo();
-                      //   },
-                      // ),
-                    ],
-                  ))
-              //: Container()
-            ],
-          ),
-        )));
+                                child: Image.asset("assets/icons/file.png")),
+                            onTap: () {
+                              //  controller.imgFromGallery();
+                            },
+                          ),
+                          GestureDetector(
+                            child: Container(
+                                height: 40.w,
+                                width: 40.w,
+                                padding: EdgeInsets.all(10.w),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primaryBackground,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 2,
+                                      offset: Offset(
+                                          1, 1), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(40.w)),
+                                ),
+                                child: Image.asset("assets/icons/photo.png")),
+                            onTap: () {
+                              // controller.imgFromCamera();
+                            },
+                          ),
+                          GestureDetector(
+                            child: Container(
+                                height: 40.w,
+                                width: 40.w,
+                                padding: EdgeInsets.all(10.w),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primaryBackground,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 2,
+                                      offset: Offset(
+                                          1, 1), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(40.w)),
+                                ),
+                                child: Image.asset("assets/icons/call.png")),
+                            onTap: () {
+                              //  controller.callAudio();
+                            },
+                          ),
+                          GestureDetector(
+                            child: Container(
+                                height: 40.w,
+                                width: 40.w,
+                                padding: EdgeInsets.all(10.w),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primaryBackground,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 2,
+                                      offset: Offset(
+                                          1, 1), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(40.w)),
+                                ),
+                                child: Image.asset("assets/icons/video.png")),
+                            onTap: () {
+                              // controller.callVideo();
+                            },
+                          ),
+                        ],
+                      ))
+                  : Container()
+            ]),
+          )),
+        ));
   }
 }
