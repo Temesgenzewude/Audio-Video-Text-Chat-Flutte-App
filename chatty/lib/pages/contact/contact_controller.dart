@@ -67,27 +67,43 @@ class ContactController extends GetxController {
           .add(msgdata);
 
       print("...creating new document and adding user info done...");
-      /*Get.offAndToNamed("/chat", parameters: {"doc_id": doc_id.id,"to_token":contactItem.token??"",
-      "to_name":contactItem.name??"","to_avatar":contactItem.avatar??"",
-      "to_online":contactItem.online.toString()});*/
+      Get.offAndToNamed("/chat", parameters: {
+        "doc_id": doc_id.id,
+        "to_token": contactItem.token ?? "",
+        "to_name": contactItem.name ?? "",
+        "to_avatar": contactItem.avatar ?? "",
+        "to_online": contactItem.online.toString()
+      });
     } else {
       print("...users are older...");
-      /*
-      if(!from_messages.docs.isEmpty){
+
+      if (!from_messages.docs.isEmpty) {
         print("---from_messages");
         print(from_messages.docs.first.id);
-        Get.offAndToNamed("/chat", parameters: {"doc_id": from_messages.docs.first.id,"to_token":contactItem.token??"","to_name":contactItem.name??"","to_avatar":contactItem.avatar??"","to_online":contactItem.online.toString()});
+        Get.offAndToNamed("/chat", parameters: {
+          "doc_id": from_messages.docs.first.id,
+          "to_token": contactItem.token ?? "",
+          "to_name": contactItem.name ?? "",
+          "to_avatar": contactItem.avatar ?? "",
+          "to_online": contactItem.online.toString()
+        });
       }
-      if(!to_messages.docs.isEmpty){
+
+      if (!to_messages.docs.isEmpty) {
         print("---to_messages");
         print(to_messages.docs.first.id);
-        Get.offAndToNamed("/chat", parameters: {"doc_id": to_messages.docs.first.id,"to_token":contactItem.token??"","to_name":contactItem.name??"","to_avatar":contactItem.avatar??"","to_online":contactItem.online.toString()});
+        Get.offAndToNamed("/chat", parameters: {
+          "doc_id": to_messages.docs.first.id,
+          "to_token": contactItem.token ?? "",
+          "to_name": contactItem.name ?? "",
+          "to_avatar": contactItem.avatar ?? "",
+          "to_online": contactItem.online.toString()
+        });
       }
-*/
     }
   }
 
-  // 拉取数据
+  //
   asyncLoadAllData() async {
     EasyLoading.show(
         indicator: CircularProgressIndicator(),
