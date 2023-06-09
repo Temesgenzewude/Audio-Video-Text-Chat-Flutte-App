@@ -68,23 +68,23 @@ class ChatPage extends GetView<ChatController> {
                       ),
                     ),
             ),
-            // Positioned(
-            //   bottom: 5.w,
-            //   right: 0.w,
-            //   height: 14.w,
-            //   child: Container(
-            //     width: 14.w,
-            //     height: 14.w,
-            //     decoration: BoxDecoration(
-            //       border: Border.all(
-            //           width: 2.w, color: AppColors.primaryElementText),
-            //       color: controller.state.to_online.value == "1" ? AppColors
-            //           .primaryElementStatus : AppColors
-            //           .primarySecondaryElementText,
-            //       borderRadius: BorderRadius.all(Radius.circular(12.w)),
-            //     ),
-            //   ),
-            // )
+            Positioned(
+              bottom: 5.w,
+              right: 0.w,
+              height: 14.w,
+              child: Container(
+                width: 14.w,
+                height: 14.w,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 2.w, color: AppColors.primaryElementText),
+                  color: controller.state.to_online.value == "1"
+                      ? AppColors.primaryElementStatus
+                      : AppColors.primarySecondaryElementText,
+                  borderRadius: BorderRadius.all(Radius.circular(12.w)),
+                ),
+              ),
+            )
           ]),
         )
       ],
