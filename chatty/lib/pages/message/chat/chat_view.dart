@@ -287,7 +287,7 @@ class ChatPage extends GetView<ChatController> {
                                 ),
                                 child: Image.asset("assets/icons/call.png")),
                             onTap: () {
-                              //  controller.callAudio();
+                              controller.callAudio();
                             },
                           ),
                           GestureDetector(

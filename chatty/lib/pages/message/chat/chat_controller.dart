@@ -20,11 +20,12 @@
 // import 'package:path/path.dart';
 import 'package:get/get.dart';
 
+import '../../../common/routes/names.dart';
 import 'chat_state.dart';
 
 class ChatController extends GetxController {
   ChatController();
- /* final myinputController = TextEditingController();
+  /* final myinputController = TextEditingController();
   ScrollController myscrollController = new ScrollController();
   ScrollController inputScrollController = new ScrollController();
   FocusNode contentFocus = FocusNode();
@@ -32,7 +33,6 @@ class ChatController extends GetxController {
 
   final ChatState state = ChatState();
 
-  
   // final db = FirebaseFirestore.instance;
   // bool isloadmore = true;
   // double inputHeightStatus = 0;
@@ -42,19 +42,24 @@ class ChatController extends GetxController {
   // File? _photo;
   // final ImagePicker _picker = ImagePicker();
 
-  goMore(){
-    state.more_status.value = state.more_status.value?false:true;
+  goMore() {
+    state.more_status.value = state.more_status.value ? false : true;
   }
 
-  // callAudio() async{
-  //   state.more_status.value = false;
-  //   Get.toNamed(AppRoutes.VoiceCall,parameters: {"doc_id":doc_id,"to_token":state.to_token.value,"to_name":state.to_name.value,"to_avatar":state.to_avatar.value,"call_role":"anchor"});
-  // }
+  callAudio() async {
+    state.more_status.value = false;
+    Get.toNamed(AppRoutes.VoiceCall, parameters: {
+      "doc_id": doc_id,
+      "to_token": state.to_token.value,
+      "to_name": state.to_name.value,
+      "to_avatar": state.to_avatar.value,
+      "call_role": "anchor"
+    });
+  }
   // callVideo() async{
   //   state.more_status.value = false;
   //   Get.toNamed(AppRoutes.VideoCall,parameters: {"doc_id":doc_id,"to_token":state.to_token.value,"to_name":state.to_name.value,"to_avatar":state.to_avatar.value,"call_role":"anchor"});
   // }
-
 
   // Future imgFromGallery() async {
   //   final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -90,7 +95,6 @@ class ChatController extends GetxController {
   //     toastInfo(msg: "image error");
   //   }
   // }
-
 
   // sendMessage() async{
 
@@ -233,7 +237,6 @@ class ChatController extends GetxController {
   //   print("------close_all_pop");
   // }
 
-  
   @override
   void onInit() {
     super.onInit();
@@ -241,10 +244,10 @@ class ChatController extends GetxController {
     var data = Get.parameters;
     print(data);
     doc_id = data["doc_id"];
-    state.to_token.value = data["to_token"]??"";
-    state.to_name.value = data["to_name"]??"";
-    state.to_avatar.value = data["to_avatar"]??"";
-    state.to_online.value = data["to_online"]??"1";
+    state.to_token.value = data["to_token"] ?? "";
+    state.to_name.value = data["to_name"] ?? "";
+    state.to_avatar.value = data["to_avatar"] ?? "";
+    state.to_online.value = data["to_online"] ?? "1";
     //clear_msg_num(doc_id);
   }
 
