@@ -306,18 +306,18 @@ class VoiceCallViewController extends GetxController {
   //   state.enableSpeakerphone.value = !state.enableSpeakerphone.value;
   // }
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   var data = Get.parameters;
-  //   print(data);
-  //   state.to_token.value = data["to_token"] ?? "";
-  //   state.to_name.value = data["to_name"] ?? "";
-  //   state.to_avatar.value = data["to_avatar"] ?? "";
-  //   state.call_role.value = data["call_role"] ?? "";
-  //   state.doc_id.value = data["doc_id"] ?? "";
-  //   _initEngine();
-  // }
+  @override
+  void onInit() {
+    super.onInit();
+    var data = Get.parameters;
+    print(data);
+    state.to_token.value = data["to_token"] ?? "";
+    state.to_name.value = data["to_name"] ?? "";
+    state.to_avatar.value = data["to_avatar"] ?? "";
+    state.call_role.value = data["call_role"] ?? "";
+    state.doc_id.value = data["doc_id"] ?? "";
+   // _initEngine();
+  }
 
   // @override
   // void onClose() {

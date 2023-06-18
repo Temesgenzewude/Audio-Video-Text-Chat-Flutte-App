@@ -55,7 +55,7 @@ class ChatController extends GetxController {
       "to_avatar": state.to_avatar.value,
       "call_role": "anchor"
     });
-  }
+  } 
   // callVideo() async{
   //   state.more_status.value = false;
   //   Get.toNamed(AppRoutes.VideoCall,parameters: {"doc_id":doc_id,"to_token":state.to_token.value,"to_name":state.to_name.value,"to_avatar":state.to_avatar.value,"call_role":"anchor"});
