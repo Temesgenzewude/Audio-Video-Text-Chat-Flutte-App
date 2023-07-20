@@ -154,9 +154,27 @@ class SignInPage extends GetView<SignInController> {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Review made by Tofik Abdu , at A2SV summer camp
-
-
 // Positive Aspects:
 
 //     Modular and Organized: The code is structured in a modular manner, with clear separation of concerns. 
