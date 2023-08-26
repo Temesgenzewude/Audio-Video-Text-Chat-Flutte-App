@@ -13,6 +13,7 @@ import '../../pages/message/voicecall/voicecall_index.dart';
 import '../../pages/profile_pages/profile_index.dart';
 import 'routes.dart';
 
+
 class AppPages {
   static const INITIAL = AppRoutes.INITIAL;
   static final RouteObserver<Route> observer = RouteObservers();

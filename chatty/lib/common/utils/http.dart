@@ -11,14 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart' hide FormData;
 
-
 class HttpUtil {
   static HttpUtil _instance = HttpUtil._internal();
   factory HttpUtil() => _instance;
 
   late Dio dio;
   CancelToken cancelToken = new CancelToken();
-
 
   HttpUtil._internal() {
     // BaseOptions、Options、RequestOptions 都可以配置参数，优先级别依次递增，且可以根据优先级别覆盖参数
@@ -52,7 +50,7 @@ class HttpUtil {
       responseType: ResponseType.json,
     );
 
-    dio = new Dio(options);
+    dio = Dio(options);
 
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (HttpClient client) {
@@ -244,7 +242,6 @@ class HttpUtil {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-
     Options requestOptions = options ?? Options();
     requestOptions.headers = requestOptions.headers ?? {};
     Map<String, dynamic>? authorization = getAuthorizationHeader();

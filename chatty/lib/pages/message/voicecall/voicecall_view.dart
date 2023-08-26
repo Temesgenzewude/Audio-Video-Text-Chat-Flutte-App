@@ -88,7 +88,7 @@ class VoiceCallViewPage extends GetView<VoiceCallViewController> {
                                     : Image.asset(
                                         "assets/icons/a_microphone.png")),
 
-                            /*  onTap: controller.state.isJoined.value
+                             /*onTap: controller.state.isJoined.value
                                         ? controller.switchMicrophone
                                         : null,*/
                           ),
@@ -122,9 +122,9 @@ class VoiceCallViewPage extends GetView<VoiceCallViewController> {
                                 ? Image.asset("assets/icons/a_phone.png")
                                 : Image.asset("assets/icons/a_telephone.png"),
                           ),
-                          /*   onTap: controller.state.isJoined.value
+                             onTap: controller.state.isJoined.value
                                       ? controller.leaveChannel
-                                      : controller.joinChannel,*/
+                                      : controller.joinChannel,
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 10.h),

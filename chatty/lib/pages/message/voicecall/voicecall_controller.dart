@@ -1,134 +1,135 @@
 import 'dart:async';
-// import 'dart:convert';
-// import 'package:chatty/common/apis/apis.dart';
-// import 'package:chatty/common/entities/entities.dart';
-// import 'package:chatty/common/routes/names.dart';
-// import 'package:chatty/common/store/store.dart';
-// import 'package:chatty/common/values/server.dart';
-// import 'package:chatty/common/values/values.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:crypto/crypto.dart';
-// import 'package:flutter/foundation.dart';
-// import 'package:flutter_easyloading/flutter_easyloading.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:convert';
+import 'package:chatty/common/apis/apis.dart';
+import 'package:chatty/common/entities/entities.dart';
+import 'package:chatty/common/routes/names.dart';
+import 'package:chatty/common/store/store.dart';
+import 'package:chatty/common/values/server.dart';
+import 'package:chatty/common/values/values.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:get/get.dart';
-// import 'package:flutter/material.dart';
-// import 'package:agora_rtc_engine/agora_rtc_engine.dart';
-// import 'package:permission_handler/permission_handler.dart';
-// import 'package:just_audio/just_audio.dart';
+import 'package:flutter/material.dart';
+import 'package:agora_rtc_engine/agora_rtc_engine.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:just_audio/just_audio.dart';
 import 'voicecall_state.dart';
 
 /// 定义 App ID 和 Token
 
 class VoiceCallViewController extends GetxController {
   final VoiceCallViewState state = VoiceCallViewState();
-  // final player = AudioPlayer();
-  // String appId = APPID;
-  // String title = "Voice Call";
-  // final db = FirebaseFirestore.instance;
-  // final profile_token = UserStore.to.profile.token;
-  // late final RtcEngine engine;
+  final player = AudioPlayer();
+  String appId = APPID;
+  String title = "Voice Call";
+  final db = FirebaseFirestore.instance;
+  final profile_token = UserStore.to.profile.token;
+  late final RtcEngine engine;
 
-  // late final Timer calltimer;
-  // int call_m = 0;
-  // int call_s = 0;
-  // int call_h = 0;
-  // bool is_calltimer = false;
-  // // 两个人聊天
-  // ChannelProfileType channelProfileType =
-  //     ChannelProfileType.channelProfileCommunication;
+  late final Timer calltimer;
+  int call_m = 0;
+  int call_s = 0;
+  int call_h = 0;
+  bool is_calltimer = false;
+ 
+  ChannelProfileType channelProfileType =
+      ChannelProfileType.channelProfileCommunication;
 
-  // Future<void> _dispose() async {
-  //   if (is_calltimer) {
-  //     calltimer.cancel();
-  //   }
-  //   if (state.call_role == "anchor") {
-  //     addCallTime();
-  //   }
-  //   await player.pause();
-  //   await engine.leaveChannel();
-  //   await engine.release();
-  //   await player.stop();
-  // }
+  Future<void> _dispose() async {
+    // if (is_calltimer) {
+    //   calltimer.cancel();
+    // }
+    // if (state.call_role == "anchor") {
+    //   addCallTime();
+    // }
+    await player.pause();
+    await engine.leaveChannel();
+    await engine.release();
+    await player.stop();
+  }
 
-  // Future<void> _initEngine() async {
-  //   await player.setAsset("assets/Sound_Horizon.mp3");
-  //   engine = createAgoraRtcEngine();
-  //   await engine.initialize(RtcEngineContext(
-  //     appId: appId,
-  //   ));
+  Future<void> _initEngine() async {
+    await player.setAsset("assets/Sound_Horizon.mp3");
+    engine = createAgoraRtcEngine();
+    await engine.initialize(RtcEngineContext(
+      appId: appId,
+    ));
 
-  //   engine.registerEventHandler(RtcEngineEventHandler(
-  //     onError: (ErrorCodeType err, String msg) {
-  //       //logSink.log('[onError] err: $err, msg: $msg');
-  //       print('[onError] err: $err, msg: $msg');
-  //       // if(err!=ErrorCodeType.errOk){
-  //       // Get.snackbar(
-  //       //     "call error, confirm return！",
-  //       //     "${msg}",
-  //       //     duration: Duration(seconds: 60),
-  //       //     isDismissible: false,
-  //       //     mainButton: TextButton(
-  //       //         onPressed: () {
-  //       //           if (Get.isSnackbarOpen) {
-  //       //             Get.closeAllSnackbars();
-  //       //           }
-  //       //           Get.offAndToNamed(AppRoutes.Message);
-  //       //         },
-  //       //         child: Container(
-  //       //           width: 40.w,
-  //       //           height: 40.w,
-  //       //           padding: EdgeInsets.all(10.w),
-  //       //           decoration: BoxDecoration(
-  //       //             color: AppColors.primaryElementBg,
-  //       //             borderRadius:
-  //       //             BorderRadius.all(Radius.circular(30.w)),
-  //       //           ),
-  //       //           child: Image.asset("assets/icons/back.png"),
-  //       //         )));
-  //       // }
-  //     },
-  //     onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
-  //       print(
-  //           '[onJoinChannelSuccess] connection: ${connection.toJson()} elapsed: $elapsed');
-  //       state.isJoined.value = true;
-  //     },
-  //     onLeaveChannel: (RtcConnection connection, RtcStats stats) {
-  //       print(
-  //           '[onLeaveChannel] connection: ${connection.toJson()} stats: ${stats.toJson()}');
-  //       state.isJoined.value = false;
-  //     },
-  //     onUserJoined:
-  //         (RtcConnection connection, int remoteUid, int elapsed) async {
-  //       await player.pause();
-  //       if (state.call_role == "anchor") {
-  //         callTime();
-  //         is_calltimer = true;
-  //       }
-  //     },
-  //     onRtcStats: (RtcConnection connection, RtcStats stats) {
-  //       print("time----- ");
-  //       print(stats.duration);
-  //     },
-  //     onUserOffline: (RtcConnection connection, int remoteUid,
-  //         UserOfflineReasonType reason) {
-  //       print("---onUserOffline----- ");
-  //     },
-  //   ));
+    engine.registerEventHandler(RtcEngineEventHandler(
+      onError: (ErrorCodeType err, String msg) {
+        //logSink.log('[onError] err: $err, msg: $msg');
+        print('...[onError] err: $err, msg: $msg');
+        // if(err!=ErrorCodeType.errOk){
+        // Get.snackbar(
+        //     "call error, confirm return！",
+        //     "${msg}",
+        //     duration: Duration(seconds: 60),
+        //     isDismissible: false,
+        //     mainButton: TextButton(
+        //         onPressed: () {
+        //           if (Get.isSnackbarOpen) {
+        //             Get.closeAllSnackbars();
+        //           }
+        //           Get.offAndToNamed(AppRoutes.Message);
+        //         },
+        //         child: Container(
+        //           width: 40.w,
+        //           height: 40.w,
+        //           padding: EdgeInsets.all(10.w),
+        //           decoration: BoxDecoration(
+        //             color: AppColors.primaryElementBg,
+        //             borderRadius:
+        //             BorderRadius.all(Radius.circular(30.w)),
+        //           ),
+        //           child: Image.asset("assets/icons/back.png"),
+        //         )));
+        // }
+      },
+      onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
+        print(
+            '...[onJoinChannelSuccess] connection: ${connection.toJson()} elapsed: $elapsed');
+        state.isJoined.value = true;
+      },
+      onLeaveChannel: (RtcConnection connection, RtcStats stats) {
+        print(
+            '...[onLeaveChannel] connection: ${connection.toJson()} stats: ${stats.toJson()}');
+        state.isJoined.value = false;
+      },
+      onUserJoined:
+          (RtcConnection connection, int remoteUid, int elapsed) async {
+        await player.pause();
+        if (state.call_role == "anchor") {
+        //  callTime();
+        //  is_calltimer = true;
+        }
+      },
+      onRtcStats: (RtcConnection connection, RtcStats stats) {
+        print("...time----- ");
+        print(stats.duration);
+      },
+      onUserOffline: (RtcConnection connection, int remoteUid,
+          UserOfflineReasonType reason) {
+        print("---onUserOffline----- ");
+      },
+    ));
 
-  //   await engine.enableAudio();
-  //   await engine.setClientRole(role: ClientRoleType.clientRoleBroadcaster);
-  //   await engine.setAudioProfile(
-  //     profile: AudioProfileType.audioProfileDefault,
-  //     scenario: AudioScenarioType.audioScenarioGameStreaming,
-  //   );
-  //   // is anchor joinChannel
-  //   await joinChannel();
-  //   if (state.call_role == "anchor") {
-  //     await sendNotifications("voice");
-  //     await player.play();
-  //   }
-  // }
+    await engine.enableAudio();
+    await engine.setClientRole(role: ClientRoleType.clientRoleBroadcaster);
+    await engine.setAudioProfile(
+      profile: AudioProfileType.audioProfileDefault,
+      scenario: AudioScenarioType.audioScenarioGameStreaming,
+    );
+    // is anchor joinChannel
+   await joinChannel();
+    // if (state.call_role == "anchor") {
+    //  // await sendNotifications("voice");
+    //   await player.play();
+    // }
+  }
 
   // callTime() async {
   //   calltimer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -232,33 +233,34 @@ class VoiceCallViewController extends GetxController {
 
   // }
 
-  // joinChannel() async {
-  //   await Permission.microphone.request();
+  joinChannel() async {
+    await Permission.microphone.request();
 
-  //   EasyLoading.show(
-  //       indicator: CircularProgressIndicator(),
-  //       maskType: EasyLoadingMaskType.clear,
-  //       dismissOnTap: true);
-  //   String token = await getToken();
-  //   if (token.isEmpty) {
-  //     EasyLoading.dismiss();
-  //     Get.back();
-  //     return;
-  //   }
-  //   await engine.joinChannel(
-  //       token: token,
-  //       channelId: state.channelId.value,
-  //       uid: 0,
-  //       options: ChannelMediaOptions(
-  //         channelProfile: channelProfileType,
-  //         clientRoleType: ClientRoleType.clientRoleBroadcaster,
-  //       ));
-  //   if (state.call_role == "audience") {
-  //     callTime();
-  //     is_calltimer = true;
-  //   }
-  //   EasyLoading.dismiss();
-  // }
+    EasyLoading.show(
+        indicator: CircularProgressIndicator(),
+        maskType: EasyLoadingMaskType.clear,
+        dismissOnTap: true);
+   /* String token = await getToken();
+    if (token.isEmpty) {
+      EasyLoading.dismiss();
+      Get.back();
+      return;
+    }*/
+    await engine.joinChannel(
+        token: "007eJxTYDhpqMheZGvydLdluXZWdZB39tkO04Mprz1Ph11Wf/7c87wCg0miqaGJZbJFkqUxkE5MTLJMMTVLNkhLszQwTjUxNNZknZDSEMjIMF2Mm4mRAQJBfAGGgqL8kvy8ktTkjOSMxJKSSgYGAG9WIow=",
+       // channelId: state.channelId.value,
+       channelId: "protontechchatty",
+        uid: 0,
+        options: ChannelMediaOptions(
+          channelProfile: channelProfileType,
+          clientRoleType: ClientRoleType.clientRoleBroadcaster,
+        ));
+    // if (state.call_role == "audience") {
+    //   callTime();
+    //   is_calltimer = true;
+    // }
+    EasyLoading.dismiss();
+  }
 
   // // send notification
   // sendNotifications(String call_type) async {
@@ -278,23 +280,23 @@ class VoiceCallViewController extends GetxController {
   //   }
   // }
 
-  // leaveChannel() async {
-  //   EasyLoading.show(
-  //       indicator: CircularProgressIndicator(),
-  //       maskType: EasyLoadingMaskType.clear,
-  //       dismissOnTap: true);
-  //   await player.pause();
-  //   await sendNotifications("cancel");
-  //   //  await engine.leaveChannel();
-  //   state.isJoined.value = false;
-  //   state.openMicrophone.value = true;
-  //   state.enableSpeakerphone.value = true;
-  //   EasyLoading.dismiss();
-  //   if (Get.isSnackbarOpen) {
-  //     Get.closeAllSnackbars();
-  //   }
-  //   Get.back();
-  // }
+  leaveChannel() async {
+    EasyLoading.show(
+        indicator: CircularProgressIndicator(),
+        maskType: EasyLoadingMaskType.clear,
+        dismissOnTap: true);
+    await player.pause();
+    //await sendNotifications("cancel");
+    //  await engine.leaveChannel();
+    state.isJoined.value = false;
+    // state.openMicrophone.value = true;
+    // state.enableSpeakerphone.value = true;
+    EasyLoading.dismiss();
+    // if (Get.isSnackbarOpen) {
+    //   Get.closeAllSnackbars();
+    // }
+    Get.back();
+  }
 
   // switchMicrophone() async {
   //   await engine.enableLocalAudio(!state.openMicrophone.value);
@@ -316,18 +318,18 @@ class VoiceCallViewController extends GetxController {
     state.to_avatar.value = data["to_avatar"] ?? "";
     state.call_role.value = data["call_role"] ?? "";
     state.doc_id.value = data["doc_id"] ?? "";
-   // _initEngine();
+   _initEngine();
   }
 
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  //   _dispose();
-  // }
+  @override
+  void onClose() {
+    super.onClose();
+    _dispose();
+  }
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   _dispose();
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+    _dispose();
+  }
 }
