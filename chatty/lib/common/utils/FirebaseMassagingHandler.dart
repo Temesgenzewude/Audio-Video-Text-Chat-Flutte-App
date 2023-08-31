@@ -1,19 +1,15 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:ui';
-import 'package:chatty/common/apis/apis.dart';
-import 'package:chatty/common/entities/entities.dart';
-import 'package:chatty/common/routes/names.dart';
-import 'package:chatty/common/store/store.dart';
-import 'package:chatty/common/values/values.dart';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../apis/apis.dart';
+import '../entities/entities.dart';
+import '../routes/names.dart';
+import '../store/store.dart';
+import '../values/values.dart';
 
 class FirebaseMassagingHandler {
   FirebaseMassagingHandler._();
@@ -77,17 +73,15 @@ class FirebaseMassagingHandler {
       FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
         print("\n notification on onMessage function \n");
         print(message);
-        if (message != null) {
-          _receiveNotification(message);
-        }
-      });
+        _receiveNotification(message);
+            });
     } on Exception catch (e) {
       print("$e");
     }
   }
 
   static Future<void> _receiveNotification(RemoteMessage message) async {
-    if (message.data != null && message.data["call_type"] != null) {
+    if (message.data["call_type"] != null) {
       //  ////1. voice 2. video 3. text, 4.cancel
       if (message.data["call_type"] == "voice") {
         //  FirebaseMassagingHandler.flutterLocalNotificationsPlugin.cancelAll();
