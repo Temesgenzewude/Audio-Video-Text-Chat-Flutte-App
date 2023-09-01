@@ -35,7 +35,7 @@ class VoiceCallViewController extends GetxController {
   int call_s = 0;
   int call_h = 0;
   bool is_calltimer = false;
- 
+
   ChannelProfileType channelProfileType =
       ChannelProfileType.channelProfileCommunication;
 
@@ -103,8 +103,8 @@ class VoiceCallViewController extends GetxController {
           (RtcConnection connection, int remoteUid, int elapsed) async {
         await player.pause();
         if (state.call_role == "anchor") {
-        //  callTime();
-        //  is_calltimer = true;
+          //  callTime();
+          //  is_calltimer = true;
         }
       },
       onRtcStats: (RtcConnection connection, RtcStats stats) {
@@ -124,7 +124,7 @@ class VoiceCallViewController extends GetxController {
       scenario: AudioScenarioType.audioScenarioGameStreaming,
     );
     // is anchor joinChannel
-   await joinChannel();
+    await joinChannel();
     // if (state.call_role == "anchor") {
     //  // await sendNotifications("voice");
     //   await player.play();
@@ -233,23 +233,24 @@ class VoiceCallViewController extends GetxController {
 
   // }
 
-  joinChannel() async {
+  Future<void> joinChannel() async {
     await Permission.microphone.request();
 
     EasyLoading.show(
         indicator: CircularProgressIndicator(),
         maskType: EasyLoadingMaskType.clear,
         dismissOnTap: true);
-   /* String token = await getToken();
+    /* String token = await getToken();
     if (token.isEmpty) {
       EasyLoading.dismiss();
       Get.back();
       return;
     }*/
     await engine.joinChannel(
-        token: "007eJxTYDhpqMheZGvydLdluXZWdZB39tkO04Mprz1Ph11Wf/7c87wCg0miqaGJZbJFkqUxkE5MTLJMMTVLNkhLszQwTjUxNNZknZDSEMjIMF2Mm4mRAQJBfAGGgqL8kvy8ktTkjOSMxJKSSgYGAG9WIow=",
-       // channelId: state.channelId.value,
-       channelId: "protontechchatty",
+        token:
+            "007eJxTYBBZnDDNf9f/zshwifpHqQdtvbZUBbTuLi1d5D3r4tvj6j8UGEwSTQ1NLJMtkiyNgXRiYpJliqlZskFamqWBcaqJofG9Hx9TGgIZGQ6tO8HEyACBIL4wQ0FRfkl+XklqckZyRmJJSWViQQEDAwAYtyjv",
+        // channelId: state.channelId.value,
+        channelId: "protontechchattyapp",
         uid: 0,
         options: ChannelMediaOptions(
           channelProfile: channelProfileType,
@@ -280,7 +281,7 @@ class VoiceCallViewController extends GetxController {
   //   }
   // }
 
-  leaveChannel() async {
+  Future<void> leaveChannel() async {
     EasyLoading.show(
         indicator: CircularProgressIndicator(),
         maskType: EasyLoadingMaskType.clear,
@@ -292,9 +293,9 @@ class VoiceCallViewController extends GetxController {
     // state.openMicrophone.value = true;
     // state.enableSpeakerphone.value = true;
     EasyLoading.dismiss();
-    // if (Get.isSnackbarOpen) {
-    //   Get.closeAllSnackbars();
-    // }
+    if (Get.isSnackbarOpen) {
+      Get.closeAllSnackbars();
+    }
     Get.back();
   }
 
@@ -318,7 +319,7 @@ class VoiceCallViewController extends GetxController {
     state.to_avatar.value = data["to_avatar"] ?? "";
     state.call_role.value = data["call_role"] ?? "";
     state.doc_id.value = data["doc_id"] ?? "";
-   _initEngine();
+    _initEngine();
   }
 
   @override

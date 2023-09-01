@@ -83,7 +83,7 @@ class AppPages {
     // GetPage(name: AppRoutes.Photoimgview, page: () => PhotoImgViewPage(), binding: PhotoImgViewBinding()),
     GetPage(
         name: AppRoutes.VoiceCall,
-        page: () => VoiceCallViewPage(),
+        page: () => const VoiceCallViewPage(),
         binding: VoiceCallViewBinding()),
     // GetPage(name: AppRoutes.VideoCall, page: () => VideoCallPage(), binding: VideoCallBinding()),
   ];

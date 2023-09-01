@@ -42,11 +42,11 @@ class MessagePage extends GetView<MessageController> {
                                   offset: const Offset(0, 1))
                             ]),
                         child: controller.state.head_detail.value.avatar == null
-                            ? Image(
+                            ? const Image(
                                 image: AssetImage(
                                     "assets/images/account_header.png"),
                               )
-                            : Text("Hi"),
+                            : const Text("Hi"),
                       ),
                       onTap: () {
                         controller.goToProfile();
@@ -102,7 +102,7 @@ class MessagePage extends GetView<MessageController> {
                       color: Colors.grey.withOpacity(0.2),
                       spreadRadius: 2,
                       blurRadius: 2,
-                      offset: Offset(1, 1), // changes position of shadow
+                      offset: const Offset(1, 1), // changes position of shadow
                     ),
                   ],
                   borderRadius: BorderRadius.all(Radius.circular(40.w)),
