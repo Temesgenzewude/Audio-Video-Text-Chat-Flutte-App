@@ -1,22 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:chatty/common/apis/apis.dart';
-import 'package:chatty/common/entities/entities.dart';
-import 'package:chatty/common/routes/names.dart';
-import 'package:chatty/common/store/store.dart';
-import 'package:chatty/common/values/server.dart';
-import 'package:chatty/common/values/values.dart';
+
+import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto/crypto.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:agora_rtc_engine/agora_rtc_engine.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:agora_rtc_engine/agora_rtc_engine.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../../../common/store/store.dart';
+import '../../../common/values/server.dart';
+import '../../../common/values/values.dart';
 import 'voicecall_state.dart';
 
 /// 定义 App ID 和 Token
@@ -288,7 +282,7 @@ class VoiceCallViewController extends GetxController {
         dismissOnTap: true);
     await player.pause();
     //await sendNotifications("cancel");
-    //  await engine.leaveChannel();
+     await engine.leaveChannel();
     state.isJoined.value = false;
     // state.openMicrophone.value = true;
     // state.enableSpeakerphone.value = true;
