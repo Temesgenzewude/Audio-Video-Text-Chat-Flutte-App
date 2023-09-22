@@ -28,7 +28,7 @@ Route::group(['namespace' => 'Api'], function(){
     // Route::any('/bind_fcmtoken','LoginController@bind_fcmtoken')->middleware('UserCheck');
     Route::any('/contact','LoginController@contact')->middleware('UserCheck');
     // Route::any('/upload_photo','LoginController@upload_photo')->middleware('UserCheck');
-    // Route::any('/send_notice','LoginController@send_notice')->middleware('UserCheck');
+    Route::any('/send_notice','LoginController@send_notice')->middleware('UserCheck');
     Route::any('/get_rtc_token','AccessTokenController@get_rtc_token')->middleware('UserCheck');
     // Route::any('/send_notice_test','LoginController@send_notice_test'); 
  

@@ -1,13 +1,18 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../common/apis/chat.dart';
+import '../../../common/entities/chat.dart';
+import '../../../common/routes/names.dart';
 import '../../../common/store/store.dart';
 import '../../../common/values/server.dart';
 import '../../../common/values/values.dart';
@@ -119,10 +124,10 @@ class VoiceCallViewController extends GetxController {
     );
     // is anchor joinChannel
     await joinChannel();
-    // if (state.call_role == "anchor") {
-    //  // await sendNotifications("voice");
-    //   await player.play();
-    // }
+    if (state.call_role == "anchor") {
+      // await sendNotifications("voice");
+      await player.play();
+    }
   }
 
   // callTime() async {
@@ -150,25 +155,26 @@ class VoiceCallViewController extends GetxController {
   //   });
   // }
 
-  // Future<String> getToken() async {
-  //   if (state.call_role == "anchor") {
-  //     state.channelId.value = md5
-  //         .convert(utf8.encode("${profile_token}_${state.to_token}"))
-  //         .toString();
-  //   } else {
-  //     state.channelId.value = md5
-  //         .convert(utf8.encode("${state.to_token}_${profile_token}"))
-  //         .toString();
-  //   }
-  //   CallTokenRequestEntity callTokenRequestEntity =
-  //       new CallTokenRequestEntity();
-  //   callTokenRequestEntity.channel_name = state.channelId.value;
-  //   var res = await ChatAPI.call_token(params: callTokenRequestEntity);
-  //   if (res.code == 0) {
-  //     return res.data!;
-  //   }
-  //   return "";
-  // }
+  Future<String> getToken() async {
+    if (state.call_role == "anchor") {
+      state.channelId.value = md5
+          .convert(utf8.encode("${profile_token}_${state.to_token}"))
+          .toString();
+    } else {
+      state.channelId.value = md5
+          .convert(utf8.encode("${state.to_token}_${profile_token}"))
+          .toString();
+    }
+    CallTokenRequestEntity callTokenRequestEntity = CallTokenRequestEntity();
+    callTokenRequestEntity.channel_name = state.channelId.value;
+    print("...channel id...: ${state.channelId.value}");
+    print("... my access token is...: ${UserStore.to.token}");
+    var res = await ChatAPI.call_token(params: callTokenRequestEntity);
+    if (res.code == 0) {
+      return res.data!;
+    }
+    return "";
+  }
 
   // addCallTime() async {
   //   var profile = UserStore.to.profile;
@@ -231,20 +237,19 @@ class VoiceCallViewController extends GetxController {
     await Permission.microphone.request();
 
     EasyLoading.show(
-        indicator: CircularProgressIndicator(),
+        indicator: const CircularProgressIndicator(),
         maskType: EasyLoadingMaskType.clear,
         dismissOnTap: true);
-    /* String token = await getToken();
+    String token = await getToken();
     if (token.isEmpty) {
       EasyLoading.dismiss();
       Get.back();
       return;
-    }*/
+    }
     await engine.joinChannel(
-        token:
-            "007eJxTYBBZnDDNf9f/zshwifpHqQdtvbZUBbTuLi1d5D3r4tvj6j8UGEwSTQ1NLJMtkiyNgXRiYpJliqlZskFamqWBcaqJofG9Hx9TGgIZGQ6tO8HEyACBIL4wQ0FRfkl+XklqckZyRmJJSWViQQEDAwAYtyjv",
-        // channelId: state.channelId.value,
-        channelId: "protontechchattyapp",
+        token: token,
+        channelId: state.channelId.value,
+        // channelId: "protontechchattyapp",
         uid: 0,
         options: ChannelMediaOptions(
           channelProfile: channelProfileType,
@@ -257,32 +262,33 @@ class VoiceCallViewController extends GetxController {
     EasyLoading.dismiss();
   }
 
-  // // send notification
-  // sendNotifications(String call_type) async {
-  //   CallRequestEntity callRequestEntity = new CallRequestEntity();
-  //   callRequestEntity.call_type = call_type;
-  //   callRequestEntity.to_token = state.to_token.value;
-  //   callRequestEntity.to_avatar = state.to_avatar.value;
-  //   callRequestEntity.doc_id = state.doc_id.value;
-  //   callRequestEntity.to_name = state.to_name.value;
-  //   var res = await ChatAPI.call_notifications(params: callRequestEntity);
-  //   print(res);
-  //   if (res.code == 0) {
-  //     print("sendNotifications success");
-  //   } else {
-  //     // Get.snackbar("Tips", "Notification error!");
-  //     // Get.offAllNamed(AppRoutes.Message);
-  //   }
-  // }
+  // send notification
+  Future<void> sendNotifications(String call_type) async {
+    CallRequestEntity callRequestEntity = CallRequestEntity();
+    callRequestEntity.call_type = call_type;
+    callRequestEntity.to_token = state.to_token.value;
+    callRequestEntity.to_avatar = state.to_avatar.value;
+    callRequestEntity.doc_id = state.doc_id.value;
+    callRequestEntity.to_name = state.to_name.value;
+    print("... the other user's token is: ${state.to_token.value}");
+    var res = await ChatAPI.call_notifications(params: callRequestEntity);
+    print(res);
+    if (res.code == 0) {
+      print("sendNotifications success");
+    } else {
+      Get.snackbar("Tips", "Notification error!");
+      Get.offAllNamed(AppRoutes.Message);
+    }
+  }
 
   Future<void> leaveChannel() async {
     EasyLoading.show(
-        indicator: CircularProgressIndicator(),
+        indicator: const CircularProgressIndicator(),
         maskType: EasyLoadingMaskType.clear,
         dismissOnTap: true);
     await player.pause();
     //await sendNotifications("cancel");
-     await engine.leaveChannel();
+    await engine.leaveChannel();
     state.isJoined.value = false;
     // state.openMicrophone.value = true;
     // state.enableSpeakerphone.value = true;
