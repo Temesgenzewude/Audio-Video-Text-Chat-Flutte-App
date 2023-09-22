@@ -28,13 +28,15 @@ class AccessTokenController extends Controller
 
         if(!empty($token)) {
             return response()->json([
-                'success' => true,
-                'token' => $token
+                "code"=>0,
+                'msg' => "success",
+                'data' => $token
             ], 200);
         } else {
             return response()->json([
-                'success' => false,
-                'message' => 'Token is empty'
+                'code' => 1,
+                'msg' => 'Token error',
+                'data' => ""
             ], 404);
         }
 
