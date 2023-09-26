@@ -18,14 +18,24 @@
 // import 'package:firebase_storage/firebase_storage.dart';
 // import 'package:image_picker/image_picker.dart';
 // import 'package:path/path.dart';
-import 'package:get/get.dart';
+import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../../common/entities/msg.dart';
+import '../../../common/entities/msgcontent.dart';
 import '../../../common/routes/names.dart';
+import '../../../common/store/user.dart';
+import '../../../common/widgets/toast.dart';
 import 'chat_state.dart';
 
 class ChatController extends GetxController {
   ChatController();
-  /* final myinputController = TextEditingController();
+   final myinputController = TextEditingController();
+   /*
   ScrollController myscrollController = new ScrollController();
   ScrollController inputScrollController = new ScrollController();
   FocusNode contentFocus = FocusNode();
@@ -33,14 +43,14 @@ class ChatController extends GetxController {
 
   final ChatState state = ChatState();
 
-  // final db = FirebaseFirestore.instance;
-  // bool isloadmore = true;
-  // double inputHeightStatus = 0;
+  final db = FirebaseFirestore.instance;
+  bool isloadmore = true;
+  double inputHeightStatus = 0;
   // var listener;
   var doc_id = null;
-  // final token = UserStore.to.profile.token;
-  // File? _photo;
-  // final ImagePicker _picker = ImagePicker();
+  final token = UserStore.to.profile.token;
+  File? _photo;
+  final ImagePicker _picker = ImagePicker();
 
   goMore() {
     state.more_status.value = state.more_status.value ? false : true;
@@ -96,47 +106,47 @@ class ChatController extends GetxController {
   //   }
   // }
 
-  // sendMessage() async{
+ Future<void> sendMessage() async{
 
-  //   print("---------------chat-----------------");
-  //   String sendcontent = myinputController.text;
-  //   if(sendcontent.isEmpty){
-  //     toastInfo(msg: "content not empty");
-  //     return;
-  //   }
-  //   print("---------------chat--${sendcontent}-----------------");
-  //   final content = Msgcontent(
-  //     token: token,
-  //     content: sendcontent,
-  //     type: "text",
-  //     addtime: Timestamp.now(),
-  //   );
+    print("---------------chat-----------------");
+    String sendcontent = myinputController.text;
+    if(sendcontent.isEmpty){
+      toastInfo(msg: "content is empty");
+      return;
+    }
+    print("---------------chat--${sendcontent}-----------------");
+    final content = Msgcontent(
+      token: token,
+      content: sendcontent,
+      type: "text",
+      addtime: Timestamp.now(),
+    );
 
-  //   await db.collection("message").doc(doc_id).collection("msglist").withConverter(
-  //     fromFirestore: Msgcontent.fromFirestore,
-  //     toFirestore: (Msgcontent msgcontent, options) => msgcontent.toFirestore(),
-  //   ).add(content).then((DocumentReference doc) {
-  //        print('DocumentSnapshot added with ID: ${doc.id}');
-  //        myinputController.clear();
+    await db.collection("message").doc(doc_id).collection("msglist").withConverter(
+      fromFirestore: Msgcontent.fromFirestore,
+      toFirestore: (Msgcontent msgcontent, options) => msgcontent.toFirestore(),
+    ).add(content).then((DocumentReference doc) {
+         print('DocumentSnapshot added with ID: ${doc.id}');
+         myinputController.clear();
 
-  //   });
-  //   var message_res = await db.collection("message").doc(doc_id).withConverter(
-  //     fromFirestore: Msg.fromFirestore,
-  //     toFirestore: (Msg msg, options) => msg.toFirestore(),
-  //   ).get();
-  //   if(message_res.data()!=null){
-  //     var item = message_res.data()!;
-  //     int to_msg_num = item.to_msg_num==null?0:item.to_msg_num!;
-  //     int from_msg_num = item.from_msg_num==null?0:item.from_msg_num!;
-  //     if (item.from_token == token) {
-  //       from_msg_num = from_msg_num + 1;
-  //     } else {
-  //       to_msg_num = to_msg_num + 1;
-  //     }
-  //     await db.collection("message").doc(doc_id).update({"to_msg_num":to_msg_num,"from_msg_num":from_msg_num,"last_msg":sendcontent,"last_time":Timestamp.now()});
-  //   }
-  //   sendNotifications("text");
-  // }
+    });
+    var message_res = await db.collection("message").doc(doc_id).withConverter(
+      fromFirestore: Msg.fromFirestore,
+      toFirestore: (Msg msg, options) => msg.toFirestore(),
+    ).get();
+    if(message_res.data()!=null){
+      var item = message_res.data()!;
+      int to_msg_num = item.to_msg_num==null?0:item.to_msg_num!;
+      int from_msg_num = item.from_msg_num==null?0:item.from_msg_num!;
+      if (item.from_token == token) {
+        from_msg_num = from_msg_num + 1;
+      } else {
+        to_msg_num = to_msg_num + 1;
+      }
+      await db.collection("message").doc(doc_id).update({"to_msg_num":to_msg_num,"from_msg_num":from_msg_num,"last_msg":sendcontent,"last_time":Timestamp.now()});
+    }
+    //sendNotifications("text");
+  }
   // sendImageMessage(String url) async{
   //   state.more_status.value = false;
   //   print("---------------chat-----------------");

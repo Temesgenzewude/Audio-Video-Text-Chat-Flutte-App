@@ -42,12 +42,12 @@ class ChatPage extends GetView<ChatController> {
                     color: Colors.grey.withOpacity(0.1),
                     spreadRadius: 1,
                     blurRadius: 2,
-                    offset: Offset(0, 1), // changes position of shadow
+                    offset: const Offset(0, 1), // changes position of shadow
                   ),
                 ],
               ),
               child: controller.state.to_avatar.value == null
-                  ? Image(
+                  ? const Image(
                       image: AssetImage('assets/images/account_header.png'),
                     )
                   : CachedNetworkImage(
@@ -63,7 +63,7 @@ class ChatPage extends GetView<ChatController> {
                               ),
                         ),
                       ),
-                      errorWidget: (context, url, error) => Image(
+                      errorWidget: (context, url, error) => const Image(
                         image: AssetImage('assets/images/account_header.png'),
                       ),
                     ),
@@ -98,7 +98,7 @@ class ChatPage extends GetView<ChatController> {
         body: Obx(
           () => SafeArea(
               child: ConstrainedBox(
-            constraints: BoxConstraints.expand(),
+            constraints: const BoxConstraints.expand(),
             child: Stack(alignment: Alignment.center, children: <Widget>[
               // ChatList(),
               Positioned(
@@ -122,7 +122,7 @@ class ChatPage extends GetView<ChatController> {
                             color: AppColors.primaryBackground,
                             border: Border.all(
                                 color: AppColors.primarySecondaryElementText),
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            borderRadius: const BorderRadius.all(Radius.circular(5)),
                           ),
                           child: Row(children: [
                             Container(
@@ -132,7 +132,7 @@ class ChatPage extends GetView<ChatController> {
                               child: TextField(
                                 keyboardType: TextInputType.multiline,
                                 maxLines: null,
-                                // controller: controller.myinputController,
+                                 controller: controller.myinputController,
                                 autofocus: false,
                                 decoration: InputDecoration(
                                   hintText: "Message...",
@@ -173,7 +173,7 @@ class ChatPage extends GetView<ChatController> {
                                 child: Image.asset("assets/icons/send.png"),
                               ),
                               onTap: () {
-                                // controller.sendMessage();
+                                controller.sendMessage();
                               },
                             )
                           ])),
@@ -189,7 +189,7 @@ class ChatPage extends GetView<ChatController> {
                                     color: Colors.grey.withOpacity(0.2),
                                     spreadRadius: 2,
                                     blurRadius: 2,
-                                    offset: Offset(
+                                    offset: const Offset(
                                         1, 1), // changes position of shadow
                                   ),
                                 ],
@@ -230,7 +230,7 @@ class ChatPage extends GetView<ChatController> {
                                       color: Colors.grey.withOpacity(0.2),
                                       spreadRadius: 2,
                                       blurRadius: 2,
-                                      offset: Offset(
+                                      offset: const Offset(
                                           1, 1), // changes position of shadow
                                     ),
                                   ],
@@ -254,7 +254,7 @@ class ChatPage extends GetView<ChatController> {
                                       color: Colors.grey.withOpacity(0.2),
                                       spreadRadius: 2,
                                       blurRadius: 2,
-                                      offset: Offset(
+                                      offset: const Offset(
                                           1, 1), // changes position of shadow
                                     ),
                                   ],
@@ -278,7 +278,7 @@ class ChatPage extends GetView<ChatController> {
                                       color: Colors.grey.withOpacity(0.2),
                                       spreadRadius: 2,
                                       blurRadius: 2,
-                                      offset: Offset(
+                                      offset: const Offset(
                                           1, 1), // changes position of shadow
                                     ),
                                   ],
@@ -302,7 +302,7 @@ class ChatPage extends GetView<ChatController> {
                                       color: Colors.grey.withOpacity(0.2),
                                       spreadRadius: 2,
                                       blurRadius: 2,
-                                      offset: Offset(
+                                      offset: const Offset(
                                           1, 1), // changes position of shadow
                                     ),
                                   ],
