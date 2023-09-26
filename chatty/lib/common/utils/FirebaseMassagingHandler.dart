@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:chatty/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -11,8 +15,8 @@ import '../routes/names.dart';
 import '../store/store.dart';
 import '../values/values.dart';
 
-class FirebaseMassagingHandler {
-  FirebaseMassagingHandler._();
+class FirebaseMessagingHandler {
+  FirebaseMessagingHandler._();
   static AndroidNotificationChannel channel_call =
       const AndroidNotificationChannel(
     'com.protonstech.chattyapp.call', // id
@@ -81,7 +85,7 @@ class FirebaseMassagingHandler {
   }
 
   static Future<void> _receiveNotification(RemoteMessage message) async {
-    if (message.data["call_type"] != null) {
+    if (message.data !=null && message.data["call_type"] != null) {
       //  ////1. voice 2. video 3. text, 4.cancel
       if (message.data["call_type"] == "voice") {
         //  FirebaseMassagingHandler.flutterLocalNotificationsPlugin.cancelAll();
@@ -92,6 +96,8 @@ class FirebaseMassagingHandler {
         var docId = data["doc_id"] ?? "";
         // var call_role= data["call_type"];
         if (toToken != null && toName != null && toAvatar != null) {
+
+          // shows the notification tray
           Get.snackbar(
               icon: Container(
                 width: 40.w,
@@ -119,7 +125,7 @@ class FirebaseMassagingHandler {
                               if (Get.isSnackbarOpen) {
                                 Get.closeAllSnackbars();
                               }
-                              FirebaseMassagingHandler._sendNotifications(
+                              FirebaseMessagingHandler._sendNotifications(
                                   "cancel", toToken, toAvatar, toName, docId);
                             },
                             child: Container(
@@ -200,7 +206,7 @@ class FirebaseMassagingHandler {
                               if (Get.isSnackbarOpen) {
                                 Get.closeAllSnackbars();
                               }
-                              FirebaseMassagingHandler._sendNotifications(
+                              FirebaseMessagingHandler._sendNotifications(
                                   "cancel", toToken, toAvatar, toName, docId);
                             },
                             child: Container(
@@ -244,7 +250,7 @@ class FirebaseMassagingHandler {
                       ))));
         }
       } else if (message.data["call_type"] == "cancel") {
-        FirebaseMassagingHandler.flutterLocalNotificationsPlugin.cancelAll();
+        FirebaseMessagingHandler.flutterLocalNotificationsPlugin.cancelAll();
 
         if (Get.isSnackbarOpen) {
           Get.closeAllSnackbars();
@@ -314,7 +320,7 @@ class FirebaseMassagingHandler {
     }
     // PlascoRequests().initReport();
   }
-/*
+
   @pragma('vm:entry-point')
   static Future<void> firebaseMessagingBackground(RemoteMessage message) async {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
@@ -326,7 +332,7 @@ class FirebaseMassagingHandler {
       if(message.data!=null && message.data["call_type"]!=null) {
 
         if(message.data["call_type"]=="cancel"){
-            FirebaseMassagingHandler.flutterLocalNotificationsPlugin.cancelAll();
+            FirebaseMessagingHandler.flutterLocalNotificationsPlugin.cancelAll();
           //  await setCallVocieOrVideo(false);
             var _prefs = await SharedPreferences.getInstance();
             await _prefs.setString("CallVocieOrVideo", "");
@@ -353,5 +359,5 @@ class FirebaseMassagingHandler {
 
     }
 
-  }*/
+  }
 }

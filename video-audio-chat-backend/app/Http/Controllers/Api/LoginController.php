@@ -113,12 +113,12 @@ class LoginController extends Controller
         $fcmtoken = $request->input("fcmtoken");
      
         if(empty($fcmtoken)) {
-            return ["code" => -1, "data" => "", "msg" => "error"];
+            return ["code" => -1, "data" => "", "msg" => "error getting the token"];
         }
       
         DB::table("users")->where("token", "=", $token)->update(["fcmtoken"=>$fcmtoken]);
       
-        return ["code" => 0, "data" => "", "msg" => "success"];
+        return ["code" => 0, "data" => "", "msg" => "successfully updated the fcmtoken"];
     }
     public function contact(Request $request)
     {
@@ -217,7 +217,7 @@ class LoginController extends Controller
                      'android' => [
                          "priority" => "high",
                          "notification" => [
-                             "channel_id"=> "com.dbestech.chatty.call",
+                             "channel_id"=> "com.protontechsolutions.chatty.call",
                              'title' => "Video call made by ".$user_name,
                              'body' => "Please click to answer the video call",
                              ]
@@ -255,7 +255,7 @@ class LoginController extends Controller
         'android' => [
             "priority" => "high",
             "notification" => [
-                      "channel_id"=> "com.dbestech.chatty.message",
+                      "channel_id"=> "com.protontechsolutions.chatty.message",
                       'title' => "Message made by ".$user_name,
                       'body' => "Please click to answer the Message",
                       ]
