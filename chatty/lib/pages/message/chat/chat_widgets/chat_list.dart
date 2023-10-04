@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
-import 'package:chatty/common/values/values.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../common/values/values.dart';
 import '../chat_index.dart';
+import 'chat_left_item.dart';
 import 'chat_right_item.dart';
 
 class ChatList extends GetView<ChatController> {
@@ -17,7 +17,7 @@ class ChatList extends GetView<ChatController> {
         child: GestureDetector(
           child: CustomScrollView(
               reverse: true,
-              //controller: controller.myscrollController,
+              controller: controller.myscrollController,
               slivers: [
                 SliverPadding(
                   padding: EdgeInsets.symmetric(
@@ -29,9 +29,9 @@ class ChatList extends GetView<ChatController> {
                     (content, index) {
                       var item = controller.state.msgcontentList[index];
                       if (controller.token == item.token) {
-                       return ChatRightItem(item);
+                        return ChatRightItem(item);
                       }
-                      //return ChatLeftItem(item);
+                      return ChatLeftItem(item);
                     },
                     childCount: controller.state.msgcontentList.length,
                   )),

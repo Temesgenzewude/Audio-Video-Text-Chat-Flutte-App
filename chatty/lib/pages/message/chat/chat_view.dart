@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:chatty/common/widgets/widgets.dart';
-import 'package:chatty/pages/message/chat/chat_widgets/chat_list.dart';
-import 'chat_index.dart';
-import 'package:chatty/common/values/values.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../../common/values/values.dart';
+import 'chat_index.dart';
+import 'chat_widgets/chat_list.dart';
 
 class ChatPage extends GetView<ChatController> {
   AppBar _buildAppBar() {

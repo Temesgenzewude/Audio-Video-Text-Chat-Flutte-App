@@ -34,12 +34,12 @@ import 'chat_state.dart';
 
 class ChatController extends GetxController {
   ChatController();
-   final myinputController = TextEditingController();
-   /*
-  ScrollController myscrollController = new ScrollController();
-  ScrollController inputScrollController = new ScrollController();
+  final myinputController = TextEditingController();
+
+  ScrollController myscrollController = ScrollController();
+
+  ScrollController inputScrollController = ScrollController();
   FocusNode contentFocus = FocusNode();
-  */
 
   final ChatState state = ChatState();
 
@@ -65,7 +65,7 @@ class ChatController extends GetxController {
       "to_avatar": state.to_avatar.value,
       "call_role": "anchor"
     });
-  } 
+  }
   // callVideo() async{
   //   state.more_status.value = false;
   //   Get.toNamed(AppRoutes.VideoCall,parameters: {"doc_id":doc_id,"to_token":state.to_token.value,"to_name":state.to_name.value,"to_avatar":state.to_avatar.value,"call_role":"anchor"});
@@ -106,11 +106,10 @@ class ChatController extends GetxController {
   //   }
   // }
 
- Future<void> sendMessage() async{
-
+  Future<void> sendMessage() async {
     print("---------------chat-----------------");
     String sendcontent = myinputController.text;
-    if(sendcontent.isEmpty){
+    if (sendcontent.isEmpty) {
       toastInfo(msg: "content is empty");
       return;
     }
@@ -122,28 +121,43 @@ class ChatController extends GetxController {
       addtime: Timestamp.now(),
     );
 
-    await db.collection("message").doc(doc_id).collection("msglist").withConverter(
-      fromFirestore: Msgcontent.fromFirestore,
-      toFirestore: (Msgcontent msgcontent, options) => msgcontent.toFirestore(),
-    ).add(content).then((DocumentReference doc) {
-         print('DocumentSnapshot added with ID: ${doc.id}');
-         myinputController.clear();
-
+    await db
+        .collection("message")
+        .doc(doc_id)
+        .collection("msglist")
+        .withConverter(
+          fromFirestore: Msgcontent.fromFirestore,
+          toFirestore: (Msgcontent msgcontent, options) =>
+              msgcontent.toFirestore(),
+        )
+        .add(content)
+        .then((DocumentReference doc) {
+      print('DocumentSnapshot added with ID: ${doc.id}');
+      myinputController.clear();
     });
-    var message_res = await db.collection("message").doc(doc_id).withConverter(
-      fromFirestore: Msg.fromFirestore,
-      toFirestore: (Msg msg, options) => msg.toFirestore(),
-    ).get();
-    if(message_res.data()!=null){
+    var message_res = await db
+        .collection("message")
+        .doc(doc_id)
+        .withConverter(
+          fromFirestore: Msg.fromFirestore,
+          toFirestore: (Msg msg, options) => msg.toFirestore(),
+        )
+        .get();
+    if (message_res.data() != null) {
       var item = message_res.data()!;
-      int to_msg_num = item.to_msg_num==null?0:item.to_msg_num!;
-      int from_msg_num = item.from_msg_num==null?0:item.from_msg_num!;
+      int to_msg_num = item.to_msg_num == null ? 0 : item.to_msg_num!;
+      int from_msg_num = item.from_msg_num == null ? 0 : item.from_msg_num!;
       if (item.from_token == token) {
         from_msg_num = from_msg_num + 1;
       } else {
         to_msg_num = to_msg_num + 1;
       }
-      await db.collection("message").doc(doc_id).update({"to_msg_num":to_msg_num,"from_msg_num":from_msg_num,"last_msg":sendcontent,"last_time":Timestamp.now()});
+      await db.collection("message").doc(doc_id).update({
+        "to_msg_num": to_msg_num,
+        "from_msg_num": from_msg_num,
+        "last_msg": sendcontent,
+        "last_time": Timestamp.now()
+      });
     }
     //sendNotifications("text");
   }
@@ -261,20 +275,25 @@ class ChatController extends GetxController {
     //clear_msg_num(doc_id);
   }
 
-
-
   @override
   void onReady() {
     super.onReady();
     print("onReady------------");
     state.msgcontentList.clear();
-    final messages = db.collection("message").doc(doc_id).collection("msglist").withConverter(
-      fromFirestore: Msgcontent.fromFirestore,
-      toFirestore: (Msgcontent msgcontent, options) => msgcontent.toFirestore(),
-    ).orderBy("addtime", descending: true).limit(15);
+    final messages = db
+        .collection("message")
+        .doc(doc_id)
+        .collection("msglist")
+        .withConverter(
+          fromFirestore: Msgcontent.fromFirestore,
+          toFirestore: (Msgcontent msgcontent, options) =>
+              msgcontent.toFirestore(),
+        )
+        .orderBy("addtime", descending: true)
+        .limit(15);
 
     listener = messages.snapshots().listen(
-          (event) {
+      (event) {
         print("current data: ${event.docs}");
         print("current data: ${event.metadata.hasPendingWrites}");
         List<Msgcontent> tempMsgList = <Msgcontent>[];
@@ -282,7 +301,7 @@ class ChatController extends GetxController {
           switch (change.type) {
             case DocumentChangeType.added:
               print("added----: ${change.doc.data()}");
-              if(change.doc.data()!=null){
+              if (change.doc.data() != null) {
                 tempMsgList.add(change.doc.data()!);
               }
               break;
@@ -295,10 +314,10 @@ class ChatController extends GetxController {
           }
         }
         tempMsgList.reversed.forEach((element) {
-          state.msgcontentList.value.insert(0,element);
+          state.msgcontentList.value.insert(0, element);
         });
         state.msgcontentList.refresh();
-        
+
         // SchedulerBinding.instance.addPostFrameCallback((_) {
         //   if (myscrollController.hasClients){
         //     myscrollController.animateTo(
@@ -308,7 +327,6 @@ class ChatController extends GetxController {
         //   }
 
         // });
-
       },
       onError: (error) => print("Listen failed: $error"),
     );
@@ -326,26 +344,22 @@ class ChatController extends GetxController {
     //   }
 
     // });
-
-
   }
-
- 
 
   @override
   void onClose() {
     super.onClose();
     print("onClose-------");
-   // clear_msg_num(doc_id);
+    // clear_msg_num(doc_id);
   }
 
   @override
   void dispose() {
     listener.cancel();
     myinputController.dispose();
-   // inputScrollController.dispose();
+    myscrollController.dispose();
+    inputScrollController.dispose();
     print("dispose-------");
     super.dispose();
   }
-  
 }
