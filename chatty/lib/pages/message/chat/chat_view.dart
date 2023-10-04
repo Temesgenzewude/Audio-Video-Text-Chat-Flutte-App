@@ -100,7 +100,7 @@ class ChatPage extends GetView<ChatController> {
               child: ConstrainedBox(
             constraints: const BoxConstraints.expand(),
             child: Stack(alignment: Alignment.center, children: <Widget>[
-              // ChatList(),
+              ChatList(),
               Positioned(
                 bottom: 0.h,
                 child: Container(

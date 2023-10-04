@@ -10,6 +10,6 @@ class ChatState {
   var to_avatar = "".obs;
   var to_online = "1".obs;
   RxBool more_status = false.obs;
-  // RxBool isloading = false.obs;
-  // RxInt inputHeight = 50.obs;
+  RxBool isloading = false.obs;
+  RxInt inputHeight = 50.obs;
 }
