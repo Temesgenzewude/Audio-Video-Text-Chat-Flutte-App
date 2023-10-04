@@ -46,7 +46,7 @@ class ChatController extends GetxController {
   final db = FirebaseFirestore.instance;
   bool isloadmore = true;
   double inputHeightStatus = 0;
-  // var listener;
+  var listener;
   var doc_id = null;
   final token = UserStore.to.profile.token;
   File? _photo;
@@ -261,7 +261,7 @@ class ChatController extends GetxController {
     //clear_msg_num(doc_id);
   }
 
-  /*
+
 
   @override
   void onReady() {
@@ -299,51 +299,53 @@ class ChatController extends GetxController {
         });
         state.msgcontentList.refresh();
         
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          if (myscrollController.hasClients){
-            myscrollController.animateTo(
-              myscrollController.position.minScrollExtent,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOut,);
-          }
+        // SchedulerBinding.instance.addPostFrameCallback((_) {
+        //   if (myscrollController.hasClients){
+        //     myscrollController.animateTo(
+        //       myscrollController.position.minScrollExtent,
+        //       duration: const Duration(milliseconds: 300),
+        //       curve: Curves.easeOut,);
+        //   }
 
-        });
+        // });
 
       },
       onError: (error) => print("Listen failed: $error"),
     );
 
-    myscrollController.addListener((){
-      // print(myscrollController.offset);
-      //  print(myscrollController.position.maxScrollExtent);
-      if((myscrollController.offset+10)>myscrollController.position.maxScrollExtent){
-        if(isloadmore){
-          state.isloading.value = true;
-          isloadmore = false;
-          asyncLoadMoreData(state.msgcontentList.length);
-        }
+    // myscrollController.addListener((){
+    //   // print(myscrollController.offset);
+    //   //  print(myscrollController.position.maxScrollExtent);
+    //   if((myscrollController.offset+10)>myscrollController.position.maxScrollExtent){
+    //     if(isloadmore){
+    //       state.isloading.value = true;
+    //       isloadmore = false;
+    //       asyncLoadMoreData(state.msgcontentList.length);
+    //     }
 
-      }
+    //   }
 
-    });
+    // });
 
 
   }
+
+ 
 
   @override
   void onClose() {
     super.onClose();
     print("onClose-------");
-    clear_msg_num(doc_id);
+   // clear_msg_num(doc_id);
   }
 
   @override
   void dispose() {
     listener.cancel();
     myinputController.dispose();
-    inputScrollController.dispose();
+   // inputScrollController.dispose();
     print("dispose-------");
     super.dispose();
   }
-  */
+  
 }
