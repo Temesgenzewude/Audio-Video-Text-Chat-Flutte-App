@@ -336,22 +336,23 @@ class LoginController extends Controller
     //   }
   
     
-    //   public function upload_photo(Request $request){
+    public function upload_photo(Request $request)
+    {
     
-    //          $file = $request->file('file');
+        $file = $request->file('file');
     
-    //          try {
-    //          $extension = $file->getClientOriginalExtension();
+        try {
+            $extension = $file->getClientOriginalExtension();
     
-    //          $fullFileName = uniqid(). '.'. $extension;
-    //          $timedir = date("Ymd");
-    //          $file->storeAs($timedir, $fullFileName,  ['disk' => 'public']);
+            $fullFileName = uniqid(). '.'. $extension;
+            $timedir = date("Ymd");
+            $file->storeAs($timedir, $fullFileName, ['disk' => 'public']);
     
-    //          $url = env('APP_URL').'/uploads/'.$timedir.'/'.$fullFileName;
-    //        return ["code" => 0, "data" => $url, "msg" => "success"];
-    //      } catch (Exception $e) {
-    //        return ["code" => -1, "data" => "", "msg" => "error"];
-    //     }
-    //   }
+            $url = env('APP_URL').'uploads/'.$timedir.'/'.$fullFileName;
+            return ["code" => 0, "data" => $url, "msg" => "successfully uploaded image"];
+        } catch (Exception $e) {
+            return ["code" => -1, "data" => "", "msg" => "error"];
+        }
+    }
 
 }
