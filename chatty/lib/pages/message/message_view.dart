@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatty/common/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,27 @@ class MessagePage extends GetView<MessageController> {
                                 image: AssetImage(
                                     "assets/images/account_header.png"),
                               )
-                            : const Text("Hi"),
+                            : CachedNetworkImage(
+                                imageUrl:
+                                    controller.state.head_detail.value.avatar!,
+                                width: 44.w,
+                                height: 44.w,
+                                imageBuilder: (context, imageProvider) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(22.w)),
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                errorWidget: (context, url, error) => const Image(
+                                    image: AssetImage(
+                                        "assets/images/account_header.png")),
+                              ),
                       ),
                       onTap: () {
                         controller.goToProfile();
@@ -75,45 +96,46 @@ class MessagePage extends GetView<MessageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: Stack(children: [
-        CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              title: _headBar(),
-              pinned: true,
-            )
-          ],
-        ),
-        Positioned(
-          right: 20.w,
-          bottom: 70.h,
-          height: 50.w,
-          width: 50.w,
-          child: GestureDetector(
-            child: Container(
-                height: 50.w,
-                width: 50.w,
-                padding: EdgeInsets.all(10.w),
-                decoration: BoxDecoration(
-                  color: AppColors.primaryElement,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: const Offset(1, 1), // changes position of shadow
-                    ),
+        body: Obx(() => SafeArea(
+              child: Stack(children: [
+                CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      title: _headBar(),
+                      pinned: true,
+                    )
                   ],
-                  borderRadius: BorderRadius.all(Radius.circular(40.w)),
                 ),
-                child: Image.asset("assets/icons/contact.png")),
-            onTap: () {
-              Get.toNamed(AppRoutes.Contact);
-            },
-          ),
-        )
-      ]),
-    ));
+                Positioned(
+                  right: 20.w,
+                  bottom: 70.h,
+                  height: 50.w,
+                  width: 50.w,
+                  child: GestureDetector(
+                    child: Container(
+                        height: 50.w,
+                        width: 50.w,
+                        padding: EdgeInsets.all(10.w),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryElement,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset: const Offset(
+                                  1, 1), // changes position of shadow
+                            ),
+                          ],
+                          borderRadius: BorderRadius.all(Radius.circular(40.w)),
+                        ),
+                        child: Image.asset("assets/icons/contact.png")),
+                    onTap: () {
+                      Get.toNamed(AppRoutes.Contact);
+                    },
+                  ),
+                )
+              ]),
+            )));
   }
 }

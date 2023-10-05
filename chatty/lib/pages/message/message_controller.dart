@@ -4,6 +4,7 @@ import 'package:chatty/common/routes/names.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 
+import '../../common/store/user.dart';
 import 'message_state.dart';
 
 class MessageController extends GetxController {
@@ -19,6 +20,12 @@ class MessageController extends GetxController {
   void onReady() {
     super.onReady();
     firebaseMessageSetup();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getProfile();
   }
 
   Future firebaseMessageSetup() async {
@@ -38,5 +45,12 @@ class MessageController extends GetxController {
         print("... error updating the fcm token");
       }
     }
+  }
+
+  void getProfile() async {
+    var result = UserStore.to.profile;
+
+    state.head_detail.value = result;
+    state.head_detail.refresh();
   }
 }
