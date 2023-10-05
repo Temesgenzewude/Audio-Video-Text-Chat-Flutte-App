@@ -41,7 +41,7 @@ class ChatList extends GetView<ChatController> {
                         EdgeInsets.symmetric(vertical: 0.w, horizontal: 0.w),
                     sliver: SliverToBoxAdapter(
                       child: controller.state.isloading.value
-                          ? Align(
+                          ? const Align(
                               alignment: Alignment.center,
                               child: Text('loading...'),
                             )
@@ -49,7 +49,7 @@ class ChatList extends GetView<ChatController> {
                     )),
               ]),
           onTap: () {
-            //controller.close_all_pop();
+            controller.close_all_pop();
           },
         )));
   }

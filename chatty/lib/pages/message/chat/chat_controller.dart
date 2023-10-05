@@ -22,9 +22,11 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../common/apis/chat.dart';
 import '../../../common/entities/msg.dart';
 import '../../../common/entities/msgcontent.dart';
 import '../../../common/routes/names.dart';
@@ -66,45 +68,51 @@ class ChatController extends GetxController {
       "call_role": "anchor"
     });
   }
-  // callVideo() async{
-  //   state.more_status.value = false;
-  //   Get.toNamed(AppRoutes.VideoCall,parameters: {"doc_id":doc_id,"to_token":state.to_token.value,"to_name":state.to_name.value,"to_avatar":state.to_avatar.value,"call_role":"anchor"});
-  // }
 
-  // Future imgFromGallery() async {
-  //   final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+  callVideo() async {
+    state.more_status.value = false;
+    Get.toNamed(AppRoutes.VideoCall, parameters: {
+      "doc_id": doc_id,
+      "to_token": state.to_token.value,
+      "to_name": state.to_name.value,
+      "to_avatar": state.to_avatar.value,
+      "call_role": "anchor"
+    });
+  }
 
-  //   if (pickedFile != null) {
-  //     _photo = File(pickedFile.path);
-  //     uploadFile();
-  //   } else {
-  //     print('No image selected.');
-  //   }
+  Future imgFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
-  // }
+    if (pickedFile != null) {
+      _photo = File(pickedFile.path);
+      uploadFile();
+    } else {
+      print('No image selected.');
+    }
+  }
 
-  // Future imgFromCamera() async {
-  //   final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+  Future imgFromCamera() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
 
-  //   if (pickedFile != null) {
-  //     _photo = File(pickedFile.path);
-  //     uploadFile();
-  //   } else {
-  //     print('No image selected.');
-  //   }
-  // }
+    if (pickedFile != null) {
+      _photo = File(pickedFile.path);
+      uploadFile();
+    } else {
+      print('No image selected.');
+    }
+  }
 
-  // Future uploadFile() async {
-  //   // if (_photo == null) return;
-  //   // print(_photo);
-  //   var result = await ChatAPI.upload_img(file:_photo);
-  //   print(result.data);
-  //   if(result.code==0){
-  //     sendImageMessage(result.data!);
-  //   }else{
-  //     toastInfo(msg: "image error");
-  //   }
-  // }
+  Future uploadFile() async {
+    if (_photo == null) return;
+    print(_photo);
+    var result = await ChatAPI.upload_img(file: _photo);
+    print(result.data);
+    if (result.code == 0) {
+      sendImageMessage(result.data!);
+    } else {
+      toastInfo(msg: "image upload error");
+    }
+  }
 
   Future<void> sendMessage() async {
     print("---------------chat-----------------");
@@ -161,40 +169,57 @@ class ChatController extends GetxController {
     }
     //sendNotifications("text");
   }
-  // sendImageMessage(String url) async{
-  //   state.more_status.value = false;
-  //   print("---------------chat-----------------");
-  //   final content = Msgcontent(
-  //     token: token,
-  //     content: url,
-  //     type: "image",
-  //     addtime: Timestamp.now(),
-  //   );
 
-  //   await db.collection("message").doc(doc_id).collection("msglist").withConverter(
-  //     fromFirestore: Msgcontent.fromFirestore,
-  //     toFirestore: (Msgcontent msgcontent, options) => msgcontent.toFirestore(),
-  //   ).add(content).then((DocumentReference doc) {
-  //     print('DocumentSnapshot added with ID: ${doc.id}');
-  //   });
-  //   var message_res = await db.collection("message").doc(doc_id).withConverter(
-  //     fromFirestore: Msg.fromFirestore,
-  //     toFirestore: (Msg msg, options) => msg.toFirestore(),
-  //   ).get();
-  //   if(message_res.data()!=null){
-  //     var item = message_res.data()!;
-  //     int to_msg_num = item.to_msg_num==null?0:item.to_msg_num!;
-  //     int from_msg_num = item.from_msg_num==null?0:item.from_msg_num!;
-  //     if (item.from_token == token) {
-  //       from_msg_num = from_msg_num + 1;
-  //     } else {
-  //       to_msg_num = to_msg_num + 1;
-  //     }
-  //     await db.collection("message").doc(doc_id).update({"to_msg_num":to_msg_num,"from_msg_num":from_msg_num,"last_msg":"【image】","last_time":Timestamp.now()});
-  //   }
+  sendImageMessage(String url) async {
+    state.more_status.value = false;
+    print("---------------chat-----------------");
+    final content = Msgcontent(
+      token: token,
+      content: url,
+      type: "image",
+      addtime: Timestamp.now(),
+    );
 
-  //   sendNotifications("text");
-  // }
+    await db
+        .collection("message")
+        .doc(doc_id)
+        .collection("msglist")
+        .withConverter(
+          fromFirestore: Msgcontent.fromFirestore,
+          toFirestore: (Msgcontent msgcontent, options) =>
+              msgcontent.toFirestore(),
+        )
+        .add(content)
+        .then((DocumentReference doc) {
+      print('DocumentSnapshot added with ID: ${doc.id}');
+    });
+    var message_res = await db
+        .collection("message")
+        .doc(doc_id)
+        .withConverter(
+          fromFirestore: Msg.fromFirestore,
+          toFirestore: (Msg msg, options) => msg.toFirestore(),
+        )
+        .get();
+    if (message_res.data() != null) {
+      var item = message_res.data()!;
+      int to_msg_num = item.to_msg_num == null ? 0 : item.to_msg_num!;
+      int from_msg_num = item.from_msg_num == null ? 0 : item.from_msg_num!;
+      if (item.from_token == token) {
+        from_msg_num = from_msg_num + 1;
+      } else {
+        to_msg_num = to_msg_num + 1;
+      }
+      await db.collection("message").doc(doc_id).update({
+        "to_msg_num": to_msg_num,
+        "from_msg_num": from_msg_num,
+        "last_msg": "【image】",
+        "last_time": Timestamp.now()
+      });
+    }
+
+    //sendNotifications("text");
+  }
 
   // sendNotifications(String call_type) async {
   //   CallRequestEntity callRequestEntity = new CallRequestEntity();
@@ -232,34 +257,41 @@ class ChatController extends GetxController {
   //   }
   // }
 
-  // asyncLoadMoreData(int page) async{
-  //   final messages = await db.collection("message").doc(doc_id).collection("msglist").withConverter(
-  //     fromFirestore: Msgcontent.fromFirestore,
-  //     toFirestore: (Msgcontent msgcontent, options) => msgcontent.toFirestore(),
-  //   ).orderBy("addtime", descending: true).where("addtime", isLessThan: state.msgcontentList.value.last.addtime)
-  //       .limit(10).get();
-  //   print(state.msgcontentList.value.last.content);
-  //   print("isGreaterThan-----");
-  //   if(messages.docs.isNotEmpty){
-  //     messages.docs.forEach((element) {
-  //       var data = element.data();
-  //       state.msgcontentList.value.add(data);
-  //       print(data.content);
-  //     });
+  asyncLoadMoreData(int page) async {
+    final messages = await db
+        .collection("message")
+        .doc(doc_id)
+        .collection("msglist")
+        .withConverter(
+          fromFirestore: Msgcontent.fromFirestore,
+          toFirestore: (Msgcontent msgcontent, options) =>
+              msgcontent.toFirestore(),
+        )
+        .orderBy("addtime", descending: true)
+        .where("addtime", isLessThan: state.msgcontentList.value.last.addtime)
+        .limit(10)
+        .get();
+    print(state.msgcontentList.value.last.content);
+    print("isGreaterThan-----");
+    if (messages.docs.isNotEmpty) {
+      messages.docs.forEach((element) {
+        var data = element.data();
+        state.msgcontentList.value.add(data);
+        print(data.content);
+      });
 
-  //     SchedulerBinding.instance.addPostFrameCallback((_) {
-  //         isloadmore = true;
-  //     });
-  //   }
-  //   state.isloading.value = false;
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        isloadmore = true;
+      });
+    }
+    state.isloading.value = false;
+  }
 
-  // }
-
-  // close_all_pop() async{
-  //   Get.focusScope?.unfocus();
-  //   state.more_status.value = false;
-  //   print("------close_all_pop");
-  // }
+  close_all_pop() async {
+    Get.focusScope?.unfocus();
+    state.more_status.value = false;
+    print("------close_all_pop");
+  }
 
   @override
   void onInit() {
@@ -318,32 +350,33 @@ class ChatController extends GetxController {
         });
         state.msgcontentList.refresh();
 
-        // SchedulerBinding.instance.addPostFrameCallback((_) {
-        //   if (myscrollController.hasClients){
-        //     myscrollController.animateTo(
-        //       myscrollController.position.minScrollExtent,
-        //       duration: const Duration(milliseconds: 300),
-        //       curve: Curves.easeOut,);
-        //   }
-
-        // });
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          if (myscrollController.hasClients) {
+            myscrollController.animateTo(
+              myscrollController.position.minScrollExtent,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOut,
+            );
+          }
+        });
       },
       onError: (error) => print("Listen failed: $error"),
     );
 
-    // myscrollController.addListener((){
-    //   // print(myscrollController.offset);
-    //   //  print(myscrollController.position.maxScrollExtent);
-    //   if((myscrollController.offset+10)>myscrollController.position.maxScrollExtent){
-    //     if(isloadmore){
-    //       state.isloading.value = true;
-    //       isloadmore = false;
-    //       asyncLoadMoreData(state.msgcontentList.length);
-    //     }
+    myscrollController.addListener(() {
+      print(myscrollController.offset);
+      print(myscrollController.position.maxScrollExtent);
+      if ((myscrollController.offset + 10) >
+          myscrollController.position.maxScrollExtent) {
+        if (isloadmore) {
+          state.isloading.value = true;
 
-    //   }
-
-    // });
+          // to stop unnecessary requests to firebase
+          isloadmore = false;
+          asyncLoadMoreData(state.msgcontentList.length);
+        }
+      }
+    });
   }
 
   @override

@@ -1,8 +1,10 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
-import 'package:chatty/common/entities/entities.dart';
-import 'package:chatty/common/utils/utils.dart';
-import 'package:chatty/common/values/values.dart';
+
+import '../entities/entities.dart';
+import '../utils/utils.dart';
+
 
 class ChatAPI {
 
