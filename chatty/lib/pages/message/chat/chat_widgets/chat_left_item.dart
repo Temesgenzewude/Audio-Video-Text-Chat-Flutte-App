@@ -51,6 +51,12 @@ Widget LeftRichTextContainer(String textContent) {
 }
 
 Widget ChatLeftItem(Msgcontent item) {
+  var imagePath = null;
+
+   if (item.type == 'image') {
+    imagePath = item.content?.replaceAll("http://localhost/", SERVER_API_URL);
+  }
+  
   return Container(
     padding: EdgeInsets.only(top: 10.h, left: 20.w, right: 20.w, bottom: 10.h),
     child: Row(
@@ -80,7 +86,7 @@ Widget ChatLeftItem(Msgcontent item) {
                             constraints: BoxConstraints(maxWidth: 90.w),
                             child: GestureDetector(
                               child: CachedNetworkImage(
-                                  imageUrl: "${item.content}"),
+                                  imageUrl:'$imagePath'),
                               onTap: () {
                                 Get.toNamed(AppRoutes.Photoimgview,
                                     parameters: {"url": item.content ?? ""});

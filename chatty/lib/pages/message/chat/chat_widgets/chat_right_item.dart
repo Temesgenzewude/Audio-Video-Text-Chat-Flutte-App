@@ -53,6 +53,12 @@ Widget RightRichTextContainer(String textContent) {
 }
 
 Widget ChatRightItem(Msgcontent item) {
+  var imagePath = null;
+
+  if (item.type == 'image') {
+   imagePath= item.content?.replaceAll("http://localhost/", SERVER_API_URL);
+  }
+
   return Container(
     padding: EdgeInsets.only(top: 10.w, left: 20.w, right: 20.w, bottom: 10.w),
     child: Row(
@@ -84,7 +90,7 @@ Widget ChatRightItem(Msgcontent item) {
                           ),
                           child: GestureDetector(
                             child:
-                                CachedNetworkImage(imageUrl: "${item.content}"),
+                                CachedNetworkImage(imageUrl: "$imagePath"),
                             onTap: () {
                               Get.toNamed(AppRoutes.Photoimgview,
                                   parameters: {"url": item.content ?? ""});
