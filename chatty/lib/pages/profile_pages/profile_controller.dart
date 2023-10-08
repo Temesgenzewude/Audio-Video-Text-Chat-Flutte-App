@@ -12,13 +12,20 @@ class ProfileController extends GetxController {
   final state = ProfileState();
 
   // used for navigation, transition, routing to new page
-  // @override
-  // void onReady() {
-  //   super.onReady();
+  @override
+  void onReady() {
+    super.onReady();
 
-  //   Future.delayed(
-  //       const Duration(seconds: 4), (() => Get.offAllNamed(AppRoutes.Message)));
-  // }
+    Future.delayed(
+        const Duration(seconds: 4), (() => Get.offAllNamed(AppRoutes.Message)));
+  }
+
+
+  @override
+  void onInit() {
+    super.onInit();
+    var userItem= Get.arguments
+  }
 
   void logOut() async {
     await GoogleSignIn().signOut();

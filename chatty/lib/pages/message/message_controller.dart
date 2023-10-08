@@ -13,7 +13,7 @@ class MessageController extends GetxController {
   final state = MessageState();
 
   void goToProfile() async {
-    await Get.toNamed(AppRoutes.Profile);
+    await Get.toNamed(AppRoutes.Profile, arguments:  state.head_detail.value);
   }
 
   @override
